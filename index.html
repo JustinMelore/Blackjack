@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" href="images/ace_of_hearts.svg">
+</head>
+<body>
+    <!-- Keeps track of both the player's and dealer's wins -->
+    <p class="wins">Player wins: <span></span></p>
+    <p class="wins">Dealer wins: <span></span></p>
+    
+    <!-- Section that appears after each game -->
+    <section>
+        <h1>You <span>TEXT</span></h1>
+        <div>
+            <p>Play Again</p>
+            <img src="images/reload.svg" alt="Redo" id="redo">    
+        </div>
+        
+    </section>
+
+    <!-- The Hit Button -->
+    <div class="options">
+        <img src="images/hit.svg">
+        <p>Hit</p>
+    </div>
+
+    <!-- The Stay Button -->
+    <div class="options">
+        <img src="images/stay.svg">
+        <p>Stay</p>
+    </div>
+    
+    <!-- The player's hand -->
+    <div class="hand" id="dealer"></div>
+
+    <!-- The dealer's hand -->
+    <div class="hand" id="player"></div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
