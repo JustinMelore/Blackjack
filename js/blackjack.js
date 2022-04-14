@@ -82,23 +82,23 @@ class Hand {
     hasBusted() {return (this.getTotal() > 21 ? true: false);} 
 }
 
-//Sets up the deck and the hands of both the dealer and the player
-const deck = new Deck();
-deck.resetDeck();
-const playerHand = new Hand("player");
-const dealerHand = new Hand("dealer");
-
-//Function for resetting the dealer and player's hands back to 2, while also resetting the deck
-function resetHands() {
+    //Sets up the deck and the hands of both the dealer and the player
+    const deck = new Deck();
     deck.resetDeck();
-    playerHand.cards=[];
-    dealerHand.cards=[];
-    for (let i = 0; i < 2; i++) playerHand.addCard(deck.drawCard());
-    dealerHand.addCard(deck.drawCard(true));
-    dealerHand.addCard(deck.drawCard());    
-}
+    const playerHand = new Hand("player");
+    const dealerHand = new Hand("dealer");
 
-resetHands();
+    //Function for resetting the dealer and player's hands back to 2, while also resetting the deck
+    function resetHands() {
+        deck.resetDeck();
+        playerHand.cards=[];
+        dealerHand.cards=[];
+        for (let i = 0; i < 2; i++) playerHand.addCard(deck.drawCard());
+        dealerHand.addCard(deck.drawCard(true));
+        dealerHand.addCard(deck.drawCard());    
+    }
+
+    resetHands();
 
 //Function that lets the player stand and then allows the dealer to go
 function dealerTurn() {
@@ -136,7 +136,7 @@ function dealerTurn() {
             background.style.opacity = "100%";
             for(let i=0; i<background.children.length; i++) background.children[i].style.transform= "none";    
         }else {
-         dealerHand.addCard(deck.drawCard());   
+            dealerHand.addCard(deck.drawCard());   
         }
     }, 1000);
 }
@@ -162,4 +162,4 @@ document.getElementById("redo").addEventListener("mousedown",function() {
     cardHands[0].style.display = "flex";
     cardHands[1].style.display = "flex";
     resetHands();
-})
+})    
