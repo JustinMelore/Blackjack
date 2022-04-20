@@ -45,6 +45,7 @@ let resetCards = () => {
         }else{
             document.getElementsByTagName("tr")[1].appendChild(tableCell);
         }
+        newCard.style.animation = "addedCard 0.5s forwards";
     }
 }
 

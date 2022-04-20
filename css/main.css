@@ -255,6 +255,8 @@ html body #player {
   background-size: contain;
   width: 100%;
   height: 100%;
+  transform: translateY(100px);
+  opacity: 0;
 }
 
 @keyframes flipCard {
