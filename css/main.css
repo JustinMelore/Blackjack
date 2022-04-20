@@ -209,11 +209,52 @@ html body #player {
   }
 }
 
+#memory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: orange;
+  font-weight: bolder;
+  text-shadow: 2px 2px black;
+}
+
+#memory table {
+  width: 100%;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  height: 50vh;
+}
+
+#memory tbody {
+  width: 100%;
+  height: 100%;
+}
+
+#memory td {
+  width: calc(100% / 13);
+  height: 50%;
+}
+
 #memory .wins {
-  position: absolute;
-  right: 50%;
-  bottom: 5%;
-  transform: translateX(50%);
+  position: static;
+}
+
+#memory h1 {
+  font-size: calc(5vw + 5vh);
+}
+
+#memory h2 {
+  font-size: calc(2vw + 2vh);
+  font-style: italic;
+  margin-bottom: 2vh;
+}
+
+#memory .card {
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes flipCard {
