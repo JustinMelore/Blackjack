@@ -33,11 +33,12 @@ let resetCards = () => {
         const newCard = document.createElement("div");
         const cardNum = Math.floor(Math.random()*cardList.length);
         const chosenCard = cardList[cardNum];
-        cardList.splice(cardNum, 1, "");
+        cardList.splice(cardNum, 1);
         newCard.classList.add("card");
         newCard.setAttribute("cardRank",chosenCard.rank);
         newCard.setAttribute("cardSuit",chosenCard.suit);
         newCard.style.backgroundImage = `url('images/cardback.svg')`;
+        // newCard.style.backgroundImage = `url('images/${chosenCard.rank}_of_${chosenCard.suit}.svg')`;
         const tableCell = document.createElement("td");
         tableCell.appendChild(newCard);
         if(i<13) {
