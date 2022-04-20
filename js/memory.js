@@ -6,6 +6,9 @@ document.getElementsByTagName("span")[0].textContent = wins;
 var moves = 39;
 document.getElementsByTagName("h2")[0].textContent = `Moves Left: ${moves}`;
 
+//Keeps track of the cards the player currently has selected
+var selectedCards = [];
+
 //A class for making a playing card
 class Card {
     //Constructor
@@ -48,6 +51,37 @@ let resetCards = () => {
         }
         newCard.style.animation = "addedCard 0.5s forwards";
     }
+
+    //Makes it so each card has clicking functionality
+    for(let i of document.getElementsByClassName("card")) i.addEventListener("mousedown",selectCard);   
 }
 
 resetCards();
+
+//Function that lets you make a match between two cards on click
+function selectCard() {
+    if(selectedCards.includes(this)) return;
+    selectedCards.push(this);
+    this.style.animation = "flipCard 0.5s forwards";
+    setTimeout(() => {this.style.backgroundImage = `url('images/${this.getAttribute("cardRank")}_of_${this.getAttribute("cardSuit")}.svg')`}, 250);
+    if(selectedCards.length > 1) {
+        let firstCard = selectedCards[0];
+        let secondCard = selectedCards[1];
+        if(selectedCards[0].getAttribute("cardRank") == selectedCards[1].getAttribute("cardRank")) {
+            setTimeout(() => {firstCard.style.animation = "removeCard 1s forwards"}, 500);
+            setTimeout(() => {firstCard.remove()}, 1500);
+            setTimeout(() => {secondCard.style.animation = "removeCard 1s forwards"}, 500);
+            setTimeout(() => {secondCard.remove()}, 1500);
+            
+        }else{
+            setTimeout(() => {
+                firstCard.style.animation = "returnCard 0.5s forwards";
+                setTimeout(() => {firstCard.style.backgroundImage = `url('images/cardback.svg')`}, 250);
+                secondCard.style.animation = "returnCard 0.5s forwards";
+                setTimeout(() => {secondCard.style.backgroundImage = `url('images/cardback.svg')`  }, 250);             
+            }, 550);
+        }
+        selectedCards = [];
+    }
+    
+}

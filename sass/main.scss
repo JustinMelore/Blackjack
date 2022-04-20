@@ -279,3 +279,32 @@ html {
     opacity: 1;
   }
 }
+
+//Identical animation to flipCard that plays to return a card back to face-down
+@keyframes returnCard {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  50% {
+    transform: translateY(0) rotateY(90deg);
+  }
+  
+  100% {
+    transform: translateY(0) rotateY(0);
+    opacity: 1;
+  }
+}
+
+//Animation that plays when a card is removed
+@keyframes removeCard {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    transform: scale(0.01);
+    opacity: 0;
+  }
+}
