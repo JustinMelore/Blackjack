@@ -85,7 +85,7 @@ function selectCard() {
                 if(document.getElementsByClassName("card").length == 0) {
                     wins++;
                     document.getElementsByTagName("span")[0].textContent = wins; 
-                    console.log("Win screen here");
+                    gameEnd("Won!","green");
                 }                
             }, 1500);
         //Not a matching pair
@@ -99,11 +99,29 @@ function selectCard() {
                 }, 250);
                 //Checks if the player has run out of moves
                 if(moves == 0) {
-                    console.log("Lose Screen Here");
+                    gameEnd("Lost!","red");
                 }                           
             }, 550);
         }
         selectedCards = [];
     }
+}
 
+//Function that makes a popup screen appear when the game finishes
+let gameEnd = (text,color) => {
+    //Removes any currently visible cards on the screen
+    let cardList = document.getElementsByClassName("card");
+    for(let i=0; i<cardList.length; i++) {
+        cardList[i].remove();
+        i--;
+    }
+    
+    //Makes the game over screen appear
+    const popupText = document.getElementsByTagName("span")[1];
+    popupText.style.color = color;
+    popupText.textContent = text;
+    const background = document.getElementsByTagName("section")[0];
+    background.style.zIndex = 2;
+    background.style.opacity = "100%";
+    for(let i of background.children) i.style.transform = "none";
 }

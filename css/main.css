@@ -259,6 +259,13 @@ html body #player {
   opacity: 0;
 }
 
+#memory section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 @keyframes flipCard {
   0% {
     transform: translateY(0);
