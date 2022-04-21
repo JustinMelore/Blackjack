@@ -40,8 +40,8 @@ let resetCards = () => {
         newCard.classList.add("card");
         newCard.setAttribute("cardRank",chosenCard.rank);
         newCard.setAttribute("cardSuit",chosenCard.suit);
-        newCard.style.backgroundImage = `url('images/cardback.svg')`;
-        // newCard.style.backgroundImage = `url('images/${chosenCard.rank}_of_${chosenCard.suit}.svg')`;
+        // newCard.style.backgroundImage = `url('images/cardback.svg')`;
+        newCard.style.backgroundImage = `url('images/${chosenCard.rank}_of_${chosenCard.suit}.svg')`;
         const tableCell = document.createElement("td");
         tableCell.appendChild(newCard);
         if(i<13) {
@@ -60,28 +60,50 @@ resetCards();
 
 //Function that lets you make a match between two cards on click
 function selectCard() {
-    if(selectedCards.includes(this)) return;
+    //Makes sure that clicking on the same card doesn't count as a pair and has moves left
+    if(selectedCards.includes(this) || moves<=0) return;
+    
+    //Flips over the card you selected and adds it to the pair
     selectedCards.push(this);
     this.style.animation = "flipCard 0.5s forwards";
     setTimeout(() => {this.style.backgroundImage = `url('images/${this.getAttribute("cardRank")}_of_${this.getAttribute("cardSuit")}.svg')`}, 250);
+    
+    //Triggers once the player has a pair
     if(selectedCards.length > 1) {
         let firstCard = selectedCards[0];
         let secondCard = selectedCards[1];
+        moves--;
+        document.getElementsByTagName("h2")[0].textContent = `Moves Left: ${moves}`;
+        //Pair of identical cards
         if(selectedCards[0].getAttribute("cardRank") == selectedCards[1].getAttribute("cardRank")) {
             setTimeout(() => {firstCard.style.animation = "removeCard 1s forwards"}, 500);
             setTimeout(() => {firstCard.remove()}, 1500);
             setTimeout(() => {secondCard.style.animation = "removeCard 1s forwards"}, 500);
-            setTimeout(() => {secondCard.remove()}, 1500);
-            
+            setTimeout(() => {
+                secondCard.remove();
+                //Checks to see if the player has won
+                if(document.getElementsByClassName("card").length == 0) {
+                    wins++;
+                    document.getElementsByTagName("span")[0].textContent = wins; 
+                    console.log("Win screen here");
+                }                
+            }, 1500);
+        //Not a matching pair
         }else{
             setTimeout(() => {
                 firstCard.style.animation = "returnCard 0.5s forwards";
                 setTimeout(() => {firstCard.style.backgroundImage = `url('images/cardback.svg')`}, 250);
                 secondCard.style.animation = "returnCard 0.5s forwards";
-                setTimeout(() => {secondCard.style.backgroundImage = `url('images/cardback.svg')`  }, 250);             
+                setTimeout(() => {
+                    secondCard.style.backgroundImage = `url('images/cardback.svg')`;
+                }, 250);
+                //Checks if the player has run out of moves
+                if(moves == 0) {
+                    console.log("Lose Screen Here");
+                }                           
             }, 550);
         }
         selectedCards = [];
     }
-    
+
 }
