@@ -96,13 +96,17 @@ function selectCard() {
                 secondCard.style.animation = "returnCard 0.5s forwards";
                 setTimeout(() => {
                     secondCard.style.backgroundImage = `url('images/cardback.svg')`;
-                }, 250);
-                //Checks if the player has run out of moves
-                if(moves == 0) {
-                    gameEnd("Lost!","red");
-                }                           
+                }, 250);       
             }, 550);
         }
+        
+        //Checks if the player has run out of moves
+        setTimeout(() => {
+            if(moves == 0) {
+                gameEnd("Lost!","red");
+            }                    
+        }, 550);
+
         selectedCards = [];
     }
 }
