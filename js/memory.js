@@ -22,6 +22,12 @@ class Card {
 
 //Resets the site with new cards upon loading the page or playing another game
 let resetCards = () => {
+    //Clears any pre-existing cards off the screen
+    let ogCards = document.getElementsByClassName("card");
+    for(let i=0; i<ogCards.length; i++) {
+        ogCards[i].remove();
+        i--;
+    }
     let ranks = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king"];
     let values = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
     let cardList = [];
@@ -40,8 +46,8 @@ let resetCards = () => {
         newCard.classList.add("card");
         newCard.setAttribute("cardRank",chosenCard.rank);
         newCard.setAttribute("cardSuit",chosenCard.suit);
-        // newCard.style.backgroundImage = `url('images/cardback.svg')`;
-        newCard.style.backgroundImage = `url('images/${chosenCard.rank}_of_${chosenCard.suit}.svg')`;
+        newCard.style.backgroundImage = `url('images/cardback.svg')`;
+        // newCard.style.backgroundImage = `url('images/${chosenCard.rank}_of_${chosenCard.suit}.svg')`; This line is purely for testing purposes. It should remain commented for actual gameplay
         const tableCell = document.createElement("td");
         tableCell.appendChild(newCard);
         if(i<13) {
@@ -87,7 +93,6 @@ function selectCard() {
                 secondCard.remove();
                 //Checks to see if the player has won
                 numCards = document.getElementsByClassName("card").length;
-                console.log(numCards);
                 
                 //If the player has matched every pair, they win
                 if(numCards == 0) {
@@ -133,3 +138,27 @@ let gameEnd = (text,color) => {
     background.style.opacity = "100%";
     for(let i of background.children) i.style.transform = "none";
 }
+
+//Allows the replay button to reset the game and start another round
+document.getElementById("redo").addEventListener("mousedown",()=> {
+    //Hides the popup after clicking
+    const background = document.getElementsByTagName("section")[0];
+    background.style.opacity = 0;
+    for(let i of background.children) i.style.transform = "translateY(-100%)";
+    background.style.zIndex = "-1";
+
+    //Removes any currently visible cards from the screen
+    // let cardList = document.getElementsByClassName("card");
+    // for(let i=0; i<cardList.length; i++) {
+    //     cardList[i].remove();
+    //     i--;
+    // }
+
+    //Loads a new set of cards for the player
+    resetCards();
+    
+
+    //Resets the move count
+    moves = 39;
+    document.getElementsByTagName("h2")[0].textContent = `Moves Left: ${moves}`;
+})
