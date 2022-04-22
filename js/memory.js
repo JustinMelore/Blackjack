@@ -24,14 +24,21 @@ class Card {
 let resetCards = () => {
     //Clears any pre-existing cards off the screen
     let ogCards = document.getElementsByClassName("card");
+    let tdList = document.getElementsByTagName("td");
     for(let i=0; i<ogCards.length; i++) {
         ogCards[i].remove();
         i--;
     }
+    for(let i=0; i<tdList.length; i++) {
+        tdList[i].remove();
+        i--;
+    }
+    // console.log(document.getElementsByTagName("td").length);
+
+    //Creates a list of all 26 cards
     let ranks = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king"];
     let values = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
     let cardList = [];
-    //Creates a list of all 26 cards
     for (let i in ranks) {
         cardList.push((new Card("hearts", ranks[i], values[i], true)));
         cardList.push((new Card("hearts", ranks[i], values[i], true)));
