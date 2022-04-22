@@ -72,41 +72,46 @@ function selectCard() {
     if(selectedCards.length > 1) {
         let firstCard = selectedCards[0];
         let secondCard = selectedCards[1];
+        let numCards;
         moves--;
         document.getElementsByTagName("h2")[0].textContent = `Moves Left: ${moves}`;
         //Pair of identical cards
         if(selectedCards[0].getAttribute("cardRank") == selectedCards[1].getAttribute("cardRank")) {
             setTimeout(() => {firstCard.style.animation = "removeCard 1s forwards"}, 500);
-            setTimeout(() => {firstCard.remove()}, 1500);
+            setTimeout(() => {
+                firstCard.remove();
+                
+            }, 1500);
             setTimeout(() => {secondCard.style.animation = "removeCard 1s forwards"}, 500);
             setTimeout(() => {
                 secondCard.remove();
                 //Checks to see if the player has won
-                if(document.getElementsByClassName("card").length == 0) {
+                numCards = document.getElementsByClassName("card").length;
+                console.log(numCards);
+                
+                //If the player has matched every pair, they win
+                if(numCards == 0) {
                     wins++;
                     document.getElementsByTagName("span")[0].textContent = wins; 
                     gameEnd("Won!","green");
-                }                
+                //If not, if they have run out of moves, they lose
+                }else if(moves==0) gameEnd("Lose!","red");                 
             }, 1500);
         //Not a matching pair
         }else{
             setTimeout(() => {
+                numCards = document.getElementsByClassName("card").length;
                 firstCard.style.animation = "returnCard 0.5s forwards";
                 setTimeout(() => {firstCard.style.backgroundImage = `url('images/cardback.svg')`}, 250);
                 secondCard.style.animation = "returnCard 0.5s forwards";
                 setTimeout(() => {
                     secondCard.style.backgroundImage = `url('images/cardback.svg')`;
-                }, 250);       
+                }, 250);
+
+                //If the player has no moves left, they lose
+                if(moves==0) gameEnd("Lose!","red");
             }, 550);
         }
-        
-        //Checks if the player has run out of moves
-        setTimeout(() => {
-            if(moves == 0) {
-                gameEnd("Lost!","red");
-            }                    
-        }, 550);
-
         selectedCards = [];
     }
 }
@@ -114,12 +119,11 @@ function selectCard() {
 //Function that makes a popup screen appear when the game finishes
 let gameEnd = (text,color) => {
     //Removes any currently visible cards on the screen
-    let cardList = document.getElementsByClassName("card");
-    for(let i=0; i<cardList.length; i++) {
-        cardList[i].remove();
-        i--;
-    }
-    
+    // let cardList = document.getElementsByClassName("card");
+    // for(let i=0; i<cardList.length; i++) {
+    //     cardList[i].remove();
+    //     i--;
+    // }
     //Makes the game over screen appear
     const popupText = document.getElementsByTagName("span")[1];
     popupText.style.color = color;
