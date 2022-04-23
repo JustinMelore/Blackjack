@@ -232,6 +232,17 @@ html body #player {
   flex-direction: column;
 }
 
+#solitaire section {
+  background-color: crimson;
+  border: 0.5rem solid gray;
+  opacity: 60%;
+  border-radius: 2rem;
+  padding: 2vw;
+  width: 7vw;
+  height: 20vh;
+  position: absolute;
+}
+
 @keyframes flipCard {
   0% {
     transform: translateY(0);

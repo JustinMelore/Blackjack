@@ -50,8 +50,6 @@ main {
   }
 }
 
-
-
 //General styling but made with blackjack in mind
 html {
   height: 100vh;
@@ -272,6 +270,20 @@ html {
   }
 }
 
+//Styling specifically for solitaire
+#solitaire {
+  section {
+    background-color: crimson;
+    border: 0.5rem solid gray;
+    opacity: 60%;
+    border-radius: 2rem;
+    padding: 2vw;
+    width: 7vw;
+    height: 20vh;
+    position: absolute;
+  }
+}
+
 //Animation for revealing face-down cards
 @keyframes flipCard {
   0% {
@@ -293,11 +305,11 @@ html {
     transform: translateY(0);
     opacity: 1;
   }
-  
+
   50% {
     transform: translateY(0) rotateY(90deg);
   }
-  
+
   100% {
     transform: translateY(0) rotateY(0);
     opacity: 1;
