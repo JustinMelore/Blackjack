@@ -272,12 +272,39 @@ html body #player {
   opacity: 60%;
   border-radius: 2rem;
   padding: 2vw;
-  width: 5vw;
-  height: 17vh;
+  width: 10vw;
+  height: 10vw;
   position: static;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
+  overflow: visible;
+  position: relative;
+}
+
+#solitaire section .card :nth-child(2) {
+  top: 25%;
+}
+
+#solitaire section .card :nth-child(3) {
+  top: 50%;
+}
+
+#solitaire section .card :nth-child(4) {
+  top: 75%;
+}
+
+#solitaire section .card :nth-child(5) {
+  top: 100%;
+}
+
+#solitaire section .card :nth-child(6) {
+  top: 125%;
+}
+
+#solitaire section .card :nth-child(7) {
+  top: 150%;
 }
 
 #solitaire .container {
@@ -301,6 +328,17 @@ html body #player {
 #solitaire .container:nth-of-type(3) {
   top: 35vh;
   left: 50vw;
+  transform: translateX(-50%);
+}
+
+#solitaire .card {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 10vw;
+  height: 12vw;
+  transform: none;
+  position: absolute;
+  left: 50%;
   transform: translateX(-50%);
 }
 

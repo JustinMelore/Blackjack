@@ -42,9 +42,8 @@ class Deck {
         newCard.classList.add("card");
         newCard.setAttribute("cardRank",chosenCard.rank);
         newCard.setAttribute("cardSuit",chosenCard.suit);
-        (chosenCard.hidden) ? newCard.style.backgroundImage = `url('images/cardback.svg')` : newCard.style.backgroundImage = `url('images/${card.rank}_of_${card.suit}.svg')`;
+        (chosenCard.hidden) ? newCard.style.backgroundImage = `url('images/cardback.svg')` : newCard.style.backgroundImage = `url('images/${chosenCard.rank}_of_${chosenCard.suit}.svg')`;
         location.appendChild(newCard);
-        newCard.style.animation = "addedCard 0.5s forwards";    
     }
 }
 
@@ -53,3 +52,20 @@ var deck = new Deck();
 deck.resetDeck();
 
 //Resets the cards for the game
+let resetCards = (cardDeck) => {
+    console.log("test");
+    const cardList = document.getElementsByClassName("card");
+    //Gets rid of cards already loaded in
+    for(let i=0; i<cardList.length; i++) {
+        cardList[0].remove();
+        i--;
+    }
+
+    //Adds new cards to the 7 columns
+    const cardSlots = document.getElementsByClassName("container")[2].children;
+    for(let i=0; i<cardSlots.length; i++) {
+        for(let j=0; j<=i; j++) (i==j) ? cardDeck.drawCard(false, cardSlots[i]) : cardDeck.drawCard(true, cardSlots[i]);
+    }
+}
+
+resetCards(deck);
