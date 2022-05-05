@@ -289,22 +289,23 @@ html {
     position: relative;
 
     .card {
-      :nth-child(2) {
+      
+      &:nth-child(2) {
         top: 25%;
       }
-      :nth-child(3) {
+      &:nth-child(3) {
         top: 50%;
       }
-      :nth-child(4) {
+      &:nth-child(4) {
         top: 75%;
       }
-      :nth-child(5) {
+      &:nth-child(5) {
         top: 100%;
       }
-      :nth-child(6) {
+      &:nth-child(6) {
         top: 125%;
       }
-      :nth-child(7) {
+      &:nth-child(7) {
         top: 150%;
       }
     }
@@ -339,10 +340,8 @@ html {
     background-repeat: no-repeat;
     width: 10vw;
     height: 12vw;
-    transform: none;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(10%);
   }
 }
 

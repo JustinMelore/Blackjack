@@ -65,7 +65,10 @@ let resetCards = (cardDeck) => {
     const cardSlots = document.getElementsByClassName("container")[2].children;
     for(let i=0; i<cardSlots.length; i++) {
         for(let j=0; j<=i; j++) (i==j) ? cardDeck.drawCard(false, cardSlots[i]) : cardDeck.drawCard(true, cardSlots[i]);
+        //event listener here
     }
+
+    //
 }
 
 resetCards(deck);
