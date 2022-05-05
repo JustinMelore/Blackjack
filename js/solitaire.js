@@ -53,7 +53,6 @@ deck.resetDeck();
 
 //Resets the cards for the game
 let resetCards = (cardDeck) => {
-    console.log("test");
     const cardList = document.getElementsByClassName("card");
     //Gets rid of cards already loaded in
     for(let i=0; i<cardList.length; i++) {
@@ -68,7 +67,13 @@ let resetCards = (cardDeck) => {
         //event listener here
     }
 
-    //
+    //Adds the remaining cards to the deck at the top left
+    const deckSlot = document.getElementsByClassName("container")[1].firstChild;
+    for(let i=0; i<deck["deck"].length; i++) {
+        cardDeck.drawCard(true, deckSlot);
+        i--;
+        //Event listener here
+    }
 }
 
 resetCards(deck);

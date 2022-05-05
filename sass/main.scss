@@ -288,27 +288,7 @@ html {
     overflow: visible;
     position: relative;
 
-    .card {
-      
-      &:nth-child(2) {
-        top: 25%;
-      }
-      &:nth-child(3) {
-        top: 50%;
-      }
-      &:nth-child(4) {
-        top: 75%;
-      }
-      &:nth-child(5) {
-        top: 100%;
-      }
-      &:nth-child(6) {
-        top: 125%;
-      }
-      &:nth-child(7) {
-        top: 150%;
-      }
-    }
+
   }
 
   .container {
@@ -332,6 +312,26 @@ html {
       top: 35vh;
       left: 50vw;
       transform: translateX(-50%);
+      .card {
+        &:nth-child(2) {
+          top: 25%;
+        }
+        &:nth-child(3) {
+          top: 50%;
+        }
+        &:nth-child(4) {
+          top: 75%;
+        }
+        &:nth-child(5) {
+          top: 100%;
+        }
+        &:nth-child(6) {
+          top: 125%;
+        }
+        &:nth-child(7) {
+          top: 150%;
+        }
+      }
     }
   }
   

@@ -283,30 +283,6 @@ html body #player {
   position: relative;
 }
 
-#solitaire section .card:nth-child(2) {
-  top: 25%;
-}
-
-#solitaire section .card:nth-child(3) {
-  top: 50%;
-}
-
-#solitaire section .card:nth-child(4) {
-  top: 75%;
-}
-
-#solitaire section .card:nth-child(5) {
-  top: 100%;
-}
-
-#solitaire section .card:nth-child(6) {
-  top: 125%;
-}
-
-#solitaire section .card:nth-child(7) {
-  top: 150%;
-}
-
 #solitaire .container {
   display: flex;
   justify-content: center;
@@ -329,6 +305,30 @@ html body #player {
   top: 35vh;
   left: 50vw;
   transform: translateX(-50%);
+}
+
+#solitaire .container:nth-of-type(3) .card:nth-child(2) {
+  top: 25%;
+}
+
+#solitaire .container:nth-of-type(3) .card:nth-child(3) {
+  top: 50%;
+}
+
+#solitaire .container:nth-of-type(3) .card:nth-child(4) {
+  top: 75%;
+}
+
+#solitaire .container:nth-of-type(3) .card:nth-child(5) {
+  top: 100%;
+}
+
+#solitaire .container:nth-of-type(3) .card:nth-child(6) {
+  top: 125%;
+}
+
+#solitaire .container:nth-of-type(3) .card:nth-child(7) {
+  top: 150%;
 }
 
 #solitaire .card {
