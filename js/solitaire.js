@@ -77,3 +77,19 @@ let resetCards = (cardDeck) => {
 }
 
 resetCards(deck);
+
+//Function that lets you pull a card from the deck on the left side of the screen
+function takeCard() {
+    const cards = this.children();
+    //Code for if there are still cards remaining in the deck
+    for(let i=0; i<cards.length; i++) {
+        const transformation = cards[i].style.transform;
+        if(transformation != "translateX(110%)") {
+            cards[i-1].style.zIndex = -1;
+            cards[i].style.transform = "translateX(110%)";
+            //Background image styling here
+            return;
+        }
+    }
+    //Code for if all of the cards have been seen
+}
