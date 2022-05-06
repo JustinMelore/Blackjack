@@ -367,7 +367,7 @@ html {
 //Alternate version of flipCard made with solitaire in mind
 @keyframes deckFlipCard {
   0% {
-    transform: translateX(0);
+    transform: translateX(10%);
     opacity: 1;
   }
   50% {
@@ -407,7 +407,7 @@ html {
     }
     
     100% {
-      transform: translateX(0) rotateY(0);
+      transform: translateX(10%) rotateY(0);
     }
 }
 

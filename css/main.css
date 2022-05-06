@@ -360,7 +360,7 @@ html body #player {
 
 @keyframes deckFlipCard {
   0% {
-    transform: translateX(0);
+    transform: translateX(10%);
     opacity: 1;
   }
   50% {
@@ -394,7 +394,7 @@ html body #player {
     transform: translateX(80%) rotateY(90deg);
   }
   100% {
-    transform: translateX(0) rotateY(0);
+    transform: translateX(10%) rotateY(0);
   }
 }
 
