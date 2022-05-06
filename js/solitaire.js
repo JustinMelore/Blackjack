@@ -78,6 +78,26 @@ let resetCards = (cardDeck) => {
 
 resetCards(deck);
 
+//Function that lets you place a card into either one of the 7 columns or into one of the slots at the top right
+function useCard() {
+    console.log(this);
+    const cardRank = this.getAttribute("cardrank");
+    const cardSuit = this.getAttribute("cardsuit");
+    switch(cardRank) {
+        case "ace":
+            const slots = document.getElementsByTagName("section");
+            for(let i of slots) {
+                if(i.getAttribute("cardsuit")==cardSuit) {
+                    i.appendChild(this);
+                    this.removeEventListener("mousedown",useCard);
+                }
+            }
+            break;
+        default:
+            console.log("nothing yet");
+    }
+}
+
 //Function that lets you pull a card from the deck on the left side of the screen
 function takeCard() {
     const cards = this.firstChild.children;
@@ -86,9 +106,12 @@ function takeCard() {
         const transformation = window.getComputedStyle(cards[i])["animationName"]
         if(transformation != "deckFlipCard") {
             if(i>1) cards[i-1].style.zIndex = -1;
-            // cards[i].style.transform = "translateX(160%)";
             cards[i].style.animation = "deckFlipCard 0.5s forwards";
-            setTimeout(() => {cards[i].style.backgroundImage = `url('images/${cards[i].getAttribute("cardrank")}_of_${cards[i].getAttribute("cardsuit")}.svg')`}, 250);
+            setTimeout(() => {
+                cards[i].style.backgroundImage = `url('images/${cards[i].getAttribute("cardrank")}_of_${cards[i].getAttribute("cardsuit")}.svg')`;
+            }, 250);
+            console.log(cards[i]);
+            cards[i].addEventListener("mousedown",useCard);
             return;
         }
     }
