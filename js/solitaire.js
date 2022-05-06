@@ -95,7 +95,8 @@ function takeCard() {
     //Code for if all of the cards have been seen
     for(let i=1; i<cards.length; i++) {
         cards[i].style.zIndex = 1;
-        cards[i].style.transform = "translateX(10%)";
+        cards[i].style.animation = "deckReturnCard 0.5s forwards";
+        setTimeout(() => {cards[i].style.backgroundImage = `url('images/cardback.svg')`}, 250);
     }
 }
 

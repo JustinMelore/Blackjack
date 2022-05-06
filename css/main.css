@@ -386,6 +386,18 @@ html body #player {
   }
 }
 
+@keyframes deckReturnCard {
+  0% {
+    transform: translateX(160%);
+  }
+  50% {
+    transform: translateX(80%) rotateY(90deg);
+  }
+  100% {
+    transform: translateX(0) rotateY(0);
+  }
+}
+
 @keyframes removeCard {
   0% {
     opacity: 1;
