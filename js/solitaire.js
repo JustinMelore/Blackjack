@@ -80,16 +80,23 @@ resetCards(deck);
 
 //Function that lets you pull a card from the deck on the left side of the screen
 function takeCard() {
-    const cards = this.children();
+    const cards = this.firstChild.children;
     //Code for if there are still cards remaining in the deck
-    for(let i=0; i<cards.length; i++) {
-        const transformation = cards[i].style.transform;
-        if(transformation != "translateX(110%)") {
-            cards[i-1].style.zIndex = -1;
-            cards[i].style.transform = "translateX(110%)";
-            //Background image styling here
+    for(let i=1; i<cards.length; i++) {
+        const transformation = window.getComputedStyle(cards[i])["animationName"]
+        if(transformation != "deckFlipCard") {
+            if(i>1) cards[i-1].style.zIndex = -1;
+            // cards[i].style.transform = "translateX(160%)";
+            cards[i].style.animation = "deckFlipCard 0.5s forwards";
+            setTimeout(() => {cards[i].style.backgroundImage = `url('images/${cards[i].getAttribute("cardrank")}_of_${cards[i].getAttribute("cardsuit")}.svg')`}, 250);
             return;
         }
     }
     //Code for if all of the cards have been seen
+    for(let i=1; i<cards.length; i++) {
+        cards[i].style.zIndex = 1;
+        cards[i].style.transform = "translateX(10%)";
+    }
 }
+
+document.getElementsByClassName("container")[1].addEventListener("mousedown",takeCard);

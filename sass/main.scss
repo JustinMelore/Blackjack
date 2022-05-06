@@ -297,6 +297,7 @@ html {
     align-items: center;
     column-gap: calc(1vw + 1vh);
     position: absolute;
+    cursor: pointer;
 
     &:nth-of-type(1) {
       top: 2vh;
@@ -344,6 +345,7 @@ html {
     transform: translateX(10%);
     cursor: pointer;
     filter: none;
+    transition: none;
   }
 }
 
@@ -360,6 +362,21 @@ html {
     transform: translateY(0) rotateY(0);
     opacity: 1;
   }
+}
+
+//Alternate version of flipCard made with solitaire in mind
+@keyframes deckFlipCard {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(80%) rotateY(90deg);
+  }
+  100% {
+    transform: translateX(160%) rotateY(0);
+    opacity: 1;
+  } 
 }
 
 //Identical animation to flipCard that plays to return a card back to face-down
