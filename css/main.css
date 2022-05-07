@@ -281,6 +281,7 @@ html body #player {
   padding: 0;
   overflow: visible;
   position: relative;
+  z-index: 1;
 }
 
 #solitaire .container {
