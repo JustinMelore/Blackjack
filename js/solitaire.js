@@ -73,6 +73,7 @@ let resetCards = (cardDeck) => {
         cardDeck.drawCard(true, deckSlot);
         i--;
     }
+    for(let i of deckSlot.children) i.addEventListener("mousedown",takeCard);
 }
 
 resetCards(deck);
@@ -81,34 +82,49 @@ resetCards(deck);
 
 //Function that lets you pull a card from the deck on the left side of the screen
 function takeCard() {
-    const cards = this.firstChild.children;
-    //Code for if there are still cards remaining in the deck
-    for(let i=1; i<cards.length; i++) {
-        const transformation = window.getComputedStyle(cards[i])["animationName"]
-        if(transformation != "deckFlipCard") {
-            if(i>1) cards[i-1].style.zIndex = -1;
-            cards[i].style.animation = "deckFlipCard 0.5s forwards";
-            setTimeout(() => {
-                cards[i].style.backgroundImage = `url('images/${cards[i].getAttribute("cardrank")}_of_${cards[i].getAttribute("cardsuit")}.svg')`;
-            }, 250);
-            console.log()
-            cards[i].addEventListener("mousedown",useCard);
-            return;
-        }
+    // const cards = this.firstChild.children;
+    // //Code for if there are still cards remaining in the deck
+    // for(let i=1; i<cards.length; i++) {
+    //     const transformation = window.getComputedStyle(cards[i])["animationName"]
+    //     if(transformation != "deckFlipCard") {
+    //         if(i>1) cards[i-1].style.zIndex = -1;
+    //         cards[i].style.animation = "deckFlipCard 0.5s forwards";
+    //         setTimeout(() => {
+    //             cards[i].style.backgroundImage = `url('images/${cards[i].getAttribute("cardrank")}_of_${cards[i].getAttribute("cardsuit")}.svg')`;
+    //         }, 250);
+    //         cards[i].addEventListener("mousedown",useCard);
+    //         return;
+    //     }
+    // }
+    //Code for drawing a card from the deck
+    if(this.className == "card") {
+        // if(prevElement.className =="card") prevElement.style.zIndex = -1;
+        const lastCard = this.nextElementSibling;
+        (lastCard) ? this.style.zIndex = parseInt(window.getComputedStyle(lastCard)["zIndex"])+1 : this.style.zIndex = 1;
+        this.style.animation = "deckFlipCard 0.5s forwards";
+        setTimeout(() => {
+            this.style.backgroundImage = `url('images/${this.getAttribute("cardrank")}_of_${this.getAttribute("cardsuit")}.svg')`;
+        }, 250);
+        this.removeEventListener("mousedown",takeCard);
+        this.addEventListener("mousedown",useCard);
+    }else{
+        //Code for if all of the cards have been seen
+        const cards = this.parentElement.children;
+        for(let i=1; i<cards.length; i++) {
+            cards[i].style.zIndex = 1;
+            cards[i].style.animation = "deckReturnCard 0.5s forwards";
+            cards[i].removeEventListener("mousedown",useCard);
+            cards[i].addEventListener("mousedown",takeCard);
+            setTimeout(() => {cards[i].style.backgroundImage = `url('images/cardback.svg')`}, 250);
+        }        
     }
-    //Code for if all of the cards have been seen
-    for(let i=1; i<cards.length; i++) {
-        cards[i].style.zIndex = 1;
-        cards[i].style.animation = "deckReturnCard 0.5s forwards";
-        setTimeout(() => {cards[i].style.backgroundImage = `url('images/cardback.svg')`}, 250);
-    }
+
 }
 
-document.getElementsByClassName("container")[1].addEventListener("mousedown",takeCard);
+// document.getElementsByClassName("container")[1].addEventListener("mousedown",takeCard);
 
 //Function that lets you place a card into either one of the 7 columns or into one of the slots at the top right
 function useCard() {
-    // console.log(this);
     const cardRank = this.getAttribute("cardrank");
     const cardSuit = this.getAttribute("cardsuit");
     switch(cardRank) {
@@ -117,8 +133,8 @@ function useCard() {
             for(let i of slots) {
                 if(i.getAttribute("cardsuit")==cardSuit) {
                     this.style.zIndex = 1;
+                    this.style.animation = "none";
                     i.appendChild(this);
-                    // this.removeEventListener("mousedown",useCard);
                 }
             }
             break;
