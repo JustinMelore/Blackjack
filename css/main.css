@@ -281,7 +281,7 @@ html body #player {
   padding: 0;
   overflow: visible;
   position: relative;
-  z-index: 1;
+  z-index: -1;
 }
 
 #solitaire .container {
@@ -291,6 +291,7 @@ html body #player {
   column-gap: calc(1vw + 1vh);
   position: absolute;
   cursor: pointer;
+  z-index: 1;
 }
 
 #solitaire .container:nth-of-type(1) {
@@ -343,6 +344,7 @@ html body #player {
   cursor: pointer;
   filter: none;
   transition: none;
+  left: 0;
 }
 
 @keyframes flipCard {

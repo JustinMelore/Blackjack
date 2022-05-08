@@ -83,6 +83,7 @@ resetCards(deck);
 //Function that lets you pull a card from the deck on the left side of the screen
 function takeCard() {
     //Code for drawing a card from the deck
+    // console.log("hello");
     if(this.className == "card") {
         const lastCard = this.nextElementSibling;
         (lastCard) ? this.style.zIndex = parseInt(window.getComputedStyle(lastCard)["zIndex"])+1 : this.style.zIndex = 1;
@@ -117,14 +118,29 @@ function useCard() {
             const slots = document.getElementsByTagName("section");
             for(let i of slots) {
                 if(i.getAttribute("cardsuit")==cardSuit) {
-                    const rect = i.getBoundingClientRect();
+                    const rect1 = i.getBoundingClientRect();
+                    const rect2 = this.getBoundingClientRect();
                     this.style.zIndex = 1;
                     this.style.animation = "none";
-                    // i.appendChild(this);
-                    console.log(rect["left"]);
-                    // this.style.transition = "left 1s";
-                    this.style.left = rect["left"]+"px";
                     this.style.transform = "none";
+                    // console.log(rect2["left"]);
+                    console.log(this.parentElement.parentElement.getBoundingClientRect()["left"]);
+                    this.style.left = `${rect2["left"] - this.parentElement.parentElement.getBoundingClientRect()["left"]}px`;
+                    console.log(window.getComputedStyle(this)["left"]);
+                    // setTimeout(() => {
+                    //   console.log(window.getComputedStyle(this)["left"]);
+                    //     this.style.transition = "left 1s";
+                    //   this.style.left = rect1["left"]+"px";
+                    // }, 2000);
+                    
+                    // console.log(rect["left"]);
+                    
+                   
+                    // setTimeout(() => {
+                    //     i.appendChild(this);
+                    //     this.style.left = "0px";
+                    //     this.style.transform = "translateX(10%)";
+                    // }, 1000);
                 }
             }
             break;

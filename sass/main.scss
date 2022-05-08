@@ -298,6 +298,7 @@ html {
     column-gap: calc(1vw + 1vh);
     position: absolute;
     cursor: pointer;
+    z-index: 1;
 
     &:nth-of-type(1) {
       top: 2vh;
@@ -345,9 +346,8 @@ html {
     transform: translateX(10%);
     cursor: pointer;
     filter: none;
-    transition: left 2s ease 0s;
+    transition: none;
     left: 0;
-    z-index: 0;
   }
 }
 
