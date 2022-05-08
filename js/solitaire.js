@@ -82,23 +82,8 @@ resetCards(deck);
 
 //Function that lets you pull a card from the deck on the left side of the screen
 function takeCard() {
-    // const cards = this.firstChild.children;
-    // //Code for if there are still cards remaining in the deck
-    // for(let i=1; i<cards.length; i++) {
-    //     const transformation = window.getComputedStyle(cards[i])["animationName"]
-    //     if(transformation != "deckFlipCard") {
-    //         if(i>1) cards[i-1].style.zIndex = -1;
-    //         cards[i].style.animation = "deckFlipCard 0.5s forwards";
-    //         setTimeout(() => {
-    //             cards[i].style.backgroundImage = `url('images/${cards[i].getAttribute("cardrank")}_of_${cards[i].getAttribute("cardsuit")}.svg')`;
-    //         }, 250);
-    //         cards[i].addEventListener("mousedown",useCard);
-    //         return;
-    //     }
-    // }
     //Code for drawing a card from the deck
     if(this.className == "card") {
-        // if(prevElement.className =="card") prevElement.style.zIndex = -1;
         const lastCard = this.nextElementSibling;
         (lastCard) ? this.style.zIndex = parseInt(window.getComputedStyle(lastCard)["zIndex"])+1 : this.style.zIndex = 1;
         this.style.animation = "deckFlipCard 0.5s forwards";
@@ -132,9 +117,14 @@ function useCard() {
             const slots = document.getElementsByTagName("section");
             for(let i of slots) {
                 if(i.getAttribute("cardsuit")==cardSuit) {
+                    const rect = i.getBoundingClientRect();
                     this.style.zIndex = 1;
                     this.style.animation = "none";
-                    i.appendChild(this);
+                    // i.appendChild(this);
+                    console.log(rect["left"]);
+                    // this.style.transition = "left 1s";
+                    this.style.left = rect["left"]+"px";
+                    this.style.transform = "none";
                 }
             }
             break;
