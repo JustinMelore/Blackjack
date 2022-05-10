@@ -63,7 +63,10 @@ let resetCards = (cardDeck) => {
     //Adds new cards to the 7 columns
     const cardSlots = document.getElementsByClassName("container")[2].children;
     for(let i=0; i<cardSlots.length; i++) {
-        for(let j=0; j<=i; j++) (i==j) ? cardDeck.drawCard(false, cardSlots[i]) : cardDeck.drawCard(true, cardSlots[i]);
+        for(let j=0; j<=i; j++) {
+            (i==j) ? cardDeck.drawCard(false, cardSlots[i]) : cardDeck.drawCard(true, cardSlots[i]);
+            cardSlots[i].children[j].style.top = `${25 * j}%`;
+        }
         cardSlots[i].children[cardSlots[i].children.length-1].addEventListener("mousedown",useCard);
     }
 
@@ -112,10 +115,17 @@ function takeCard() {
     }
 }
 
+//Function that sees which location a card should go to (meant for non-ace cards)
+// function findCardLocation(card) {
+    
+// }
+
+
 //Function that lets you place a card into either one of the 7 columns or into one of the slots at the top right
 function useCard() {
     const cardRank = this.getAttribute("cardrank");
     const cardSuit = this.getAttribute("cardsuit");
+    let cardMoved = false;
     switch(cardRank) {
         case "ace":
             const slots = document.getElementsByTagName("section");
@@ -136,13 +146,22 @@ function useCard() {
                             this.style.left = "0";
                             this.style.top = "auto";
                             this.style.transform = "translateX(10%)";
+                            this.style.transition = "none"
                             this.removeEventListener("mousedown",useCard);
                         }, 750);                        
                     }, 1);
                 }
             }
-            break;
+            cardMoved = true;
         default:
-            console.log("nothing yet");
+            if(cardMoved && this.parentElement.children[0] != this && this.parentElement.parentElement == document.getElementsByClassName("container")[2]) {
+                const prevCard = this.previousElementSibling;
+                prevCard.style.animation = "flipCard 0.5s";
+                setTimeout(() => {
+                    prevCard.style.backgroundImage = `url('images/${prevCard.getAttribute("cardrank")}_of_${prevCard.getAttribute("cardsuit")}.svg')`;
+                    setTimeout(() => {prevCard.style.transform = "translateX(10%)"}, 250);
+                }, 250);
+                prevCard.addEventListener("mousedown",useCard);
+            }
     }
 }

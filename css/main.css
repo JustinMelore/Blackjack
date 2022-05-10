@@ -309,30 +309,6 @@ html body #player {
   transform: translateX(-50%);
 }
 
-#solitaire .container:nth-of-type(3) .card:nth-child(2) {
-  top: 25%;
-}
-
-#solitaire .container:nth-of-type(3) .card:nth-child(3) {
-  top: 50%;
-}
-
-#solitaire .container:nth-of-type(3) .card:nth-child(4) {
-  top: 75%;
-}
-
-#solitaire .container:nth-of-type(3) .card:nth-child(5) {
-  top: 100%;
-}
-
-#solitaire .container:nth-of-type(3) .card:nth-child(6) {
-  top: 125%;
-}
-
-#solitaire .container:nth-of-type(3) .card:nth-child(7) {
-  top: 150%;
-}
-
 #solitaire .card {
   background-size: contain;
   background-repeat: no-repeat;
