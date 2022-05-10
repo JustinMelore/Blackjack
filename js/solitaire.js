@@ -78,36 +78,39 @@ let resetCards = (cardDeck) => {
 
 resetCards(deck);
 
-
+//Function that checks to make sure no cards are currently being moved into a different pile so that styling problems don't occur
+const cardsMoving = () => {
+    const cards = document.getElementsByClassName("card");
+    for(let i of cards) if(window.getComputedStyle(i)["transform"] == "none") return true;
+    return false;
+}
 
 //Function that lets you pull a card from the deck on the left side of the screen
 function takeCard() {
     //Code for drawing a card from the deck
-    // console.log("hello");
-    if(this.className == "card") {
-        const lastCard = this.nextElementSibling;
-        (lastCard) ? this.style.zIndex = parseInt(window.getComputedStyle(lastCard)["zIndex"])+1 : this.style.zIndex = 1;
-        this.style.animation = "deckFlipCard 0.5s forwards";
-        setTimeout(() => {
-            this.style.backgroundImage = `url('images/${this.getAttribute("cardrank")}_of_${this.getAttribute("cardsuit")}.svg')`;
-        }, 250);
-        this.removeEventListener("mousedown",takeCard);
-        this.addEventListener("mousedown",useCard);
-    }else{
-        //Code for if all of the cards have been seen
-        const cards = this.parentElement.children;
-        for(let i=1; i<cards.length; i++) {
-            cards[i].style.zIndex = 1;
-            cards[i].style.animation = "deckReturnCard 0.5s forwards";
-            cards[i].removeEventListener("mousedown",useCard);
-            cards[i].addEventListener("mousedown",takeCard);
-            setTimeout(() => {cards[i].style.backgroundImage = `url('images/cardback.svg')`}, 250);
-        }        
+    if(!cardsMoving()) {
+        if(this.className == "card") {
+            const lastCard = this.nextElementSibling;
+            (lastCard) ? this.style.zIndex = parseInt(window.getComputedStyle(lastCard)["zIndex"])+1 : this.style.zIndex = 1;
+            this.style.animation = "deckFlipCard 0.5s forwards";
+            setTimeout(() => {
+                this.style.backgroundImage = `url('images/${this.getAttribute("cardrank")}_of_${this.getAttribute("cardsuit")}.svg')`;
+            }, 250);
+            this.removeEventListener("mousedown",takeCard);
+            this.addEventListener("mousedown",useCard);
+        }else{
+            //Code for if all of the cards have been seen
+            const cards = this.parentElement.children;
+            for(let i=1; i<cards.length; i++) {
+                cards[i].style.zIndex = 1;
+                cards[i].style.animation = "deckReturnCard 0.5s forwards";
+                cards[i].removeEventListener("mousedown",useCard);
+                cards[i].addEventListener("mousedown",takeCard);
+                setTimeout(() => {cards[i].style.backgroundImage = `url('images/cardback.svg')`}, 250);
+            }        
+        }
     }
-
 }
-
-// document.getElementsByClassName("container")[1].addEventListener("mousedown",takeCard);
 
 //Function that lets you place a card into either one of the 7 columns or into one of the slots at the top right
 function useCard() {
@@ -123,24 +126,16 @@ function useCard() {
                     this.style.zIndex = 1;
                     this.style.animation = "none";
                     this.style.transform = "none";
-                    // console.log(rect2["left"]);
-                    console.log(this.parentElement.parentElement.getBoundingClientRect()["left"]);
-                    this.style.left = `${rect2["left"] - this.parentElement.parentElement.getBoundingClientRect()["left"]}px`;
-                    console.log(window.getComputedStyle(this)["left"]);
-                    // setTimeout(() => {
-                    //   console.log(window.getComputedStyle(this)["left"]);
-                    //     this.style.transition = "left 1s";
-                    //   this.style.left = rect1["left"]+"px";
-                    // }, 2000);
-                    
-                    // console.log(rect["left"]);
-                    
-                   
-                    // setTimeout(() => {
-                    //     i.appendChild(this);
-                    //     this.style.left = "0px";
-                    //     this.style.transform = "translateX(10%)";
-                    // }, 1000);
+                    this.style.left = `${rect2["left"] - this.parentElement.parentElement.getBoundingClientRect()["left"] - 8}px`;                    
+                    setTimeout(() => {
+                        this.style.transition = "left 0.75s";
+                        this.style.left = rect1["left"]+"px";
+                        setTimeout(() => {
+                            i.appendChild(this);
+                            this.style.left = "0px";
+                            this.style.transform = "translateX(10%)";
+                        }, 750);                        
+                    }, 1);
                 }
             }
             break;
