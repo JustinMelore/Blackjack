@@ -64,7 +64,7 @@ let resetCards = (cardDeck) => {
     const cardSlots = document.getElementsByClassName("container")[2].children;
     for(let i=0; i<cardSlots.length; i++) {
         for(let j=0; j<=i; j++) (i==j) ? cardDeck.drawCard(false, cardSlots[i]) : cardDeck.drawCard(true, cardSlots[i]);
-        //event listener here
+        cardSlots[i].children[cardSlots[i].children.length-1].addEventListener("mousedown",useCard);
     }
 
     //Adds the remaining cards to the deck at the top left
@@ -121,19 +121,22 @@ function useCard() {
             const slots = document.getElementsByTagName("section");
             for(let i of slots) {
                 if(i.getAttribute("cardsuit")==cardSuit) {
-                    const rect1 = i.getBoundingClientRect();
-                    const rect2 = this.getBoundingClientRect();
+                    const slotRect = i.getBoundingClientRect();
+                    const cardRect = this.getBoundingClientRect();
                     this.style.zIndex = 1;
                     this.style.animation = "none";
                     this.style.transform = "none";
-                    this.style.left = `${rect2["left"] - this.parentElement.parentElement.getBoundingClientRect()["left"] - 8}px`;                    
+                    if(this.parentElement.parentElement == document.getElementsByClassName("container")[1]) this.style.left = `${cardRect["left"] - this.parentElement.parentElement.getBoundingClientRect()["left"] - 8}px`;
                     setTimeout(() => {
-                        this.style.transition = "left 0.75s";
-                        this.style.left = rect1["left"]+"px";
+                        this.style.transition = "left 0.75s, top 0.75s";
+                        this.style.left = `${slotRect["left"] - this.parentElement.getBoundingClientRect()["left"] + 8}px`;
+                        this.style.top = `${-this.parentElement.parentElement.getBoundingClientRect()["top"]}px`;
                         setTimeout(() => {
                             i.appendChild(this);
-                            this.style.left = "0px";
+                            this.style.left = "0";
+                            this.style.top = "auto";
                             this.style.transform = "translateX(10%)";
+                            this.removeEventListener("mousedown",useCard);
                         }, 750);                        
                     }, 1);
                 }

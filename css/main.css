@@ -27,6 +27,7 @@ main {
   padding-left: 10vw;
   padding-right: 10vw;
 }
+
 main a {
   display: flex;
   align-items: center;
@@ -34,9 +35,11 @@ main a {
   flex-direction: column;
   text-decoration: none;
 }
+
 main a img {
-  width: 20vw;
+  width: calc(10vw + 10vw);
 }
+
 main a p {
   font-size: calc(1.25vw + 1.25vh);
   color: orange;
@@ -49,8 +52,8 @@ main a p {
 html {
   height: 100vh;
   width: 100%;
-  overflow: hidden;
 }
+
 html body {
   box-sizing: border-box;
   height: 100%;
@@ -60,6 +63,7 @@ html body {
   background-attachment: fixed;
   background-size: cover;
 }
+
 html body .wins {
   position: absolute;
   right: 2vw;
@@ -68,12 +72,15 @@ html body .wins {
   text-shadow: 2px 2px black;
   font-size: calc(2vw + 2vh);
 }
+
 html body .wins:nth-of-type(0) {
   top: 3vh;
 }
+
 html body .wins:nth-of-type(1) {
   bottom: 3vh;
 }
+
 html body section {
   width: 100%;
   height: 100%;
@@ -90,31 +97,38 @@ html body section {
   display: flex;
   transition: 0.5s;
 }
+
 html body section h1 {
   font-size: calc(5vw + 5vh);
   transition: 0.5s;
   transform: translateY(-100%);
 }
+
 html body section p {
   font-size: calc(2vw + 2vh);
   color: white;
 }
+
 html body section div {
   text-align: center;
   transition: 0.5s;
   transform: translateY(-100%);
   filter: brightness(0.5);
 }
+
 html body section div:hover {
   filter: none;
 }
+
 html body section div:hover img {
   transform: scale(1.2);
 }
+
 html body section img {
   width: 5vw;
   transition: 0.25s;
 }
+
 html body .options {
   display: flex;
   justify-content: center;
@@ -128,24 +142,31 @@ html body .options {
   cursor: pointer;
   z-index: 1;
 }
+
 html body .options:hover {
   opacity: 100%;
 }
+
 html body .options p {
   font-size: 2vw;
 }
+
 html body .options:nth-of-type(1) {
   left: 25%;
 }
+
 html body .options:nth-of-type(1) p {
   transform: translateX(25%);
 }
+
 html body .options:nth-of-type(2) {
   left: 75%;
 }
+
 html body .options:nth-of-type(2) p {
   transform: translateX(10%);
 }
+
 html body .hand {
   display: flex;
   position: absolute;
@@ -162,6 +183,7 @@ html body .hand {
   border-radius: 2rem;
   padding: 2vw;
 }
+
 html body .hand .card {
   background-repeat: no-repeat;
   background-size: contain;
@@ -170,9 +192,11 @@ html body .hand .card {
   transform: translateY(100px);
   opacity: 0;
 }
+
 html body #dealer {
   top: 2vh;
 }
+
 html body #player {
   bottom: 2vh;
 }
@@ -183,6 +207,7 @@ html body #player {
     opacity: 1;
   }
 }
+
 #memory {
   display: flex;
   flex-direction: column;
@@ -192,31 +217,38 @@ html body #player {
   font-weight: bolder;
   text-shadow: 2px 2px black;
 }
+
 #memory table {
   width: 100%;
   padding-left: 5vw;
   padding-right: 5vw;
   height: 50vh;
 }
+
 #memory tbody {
   width: 100%;
   height: 100%;
 }
+
 #memory td {
-  width: 7.6923076923%;
+  width: calc(100% / 13);
   height: 50%;
 }
+
 #memory .wins {
   position: static;
 }
+
 #memory h1 {
   font-size: calc(5vw + 5vh);
 }
+
 #memory h2 {
   font-size: calc(2vw + 2vh);
   font-style: italic;
   margin-bottom: 2vh;
 }
+
 #memory .card {
   background-repeat: no-repeat;
   background-size: contain;
@@ -225,6 +257,7 @@ html body #player {
   transform: translateY(100px);
   opacity: 0;
 }
+
 #memory section {
   display: flex;
   justify-content: center;
@@ -249,6 +282,7 @@ html body #player {
   position: relative;
   z-index: -1;
 }
+
 #solitaire .container {
   display: flex;
   justify-content: center;
@@ -258,37 +292,47 @@ html body #player {
   cursor: pointer;
   z-index: 1;
 }
+
 #solitaire .container:nth-of-type(1) {
   top: 2vh;
   right: 1vw;
 }
+
 #solitaire .container:nth-of-type(2) {
   top: 2vh;
   left: 1vw;
 }
+
 #solitaire .container:nth-of-type(3) {
   top: 35vh;
   left: 50vw;
   transform: translateX(-50%);
 }
+
 #solitaire .container:nth-of-type(3) .card:nth-child(2) {
   top: 25%;
 }
+
 #solitaire .container:nth-of-type(3) .card:nth-child(3) {
   top: 50%;
 }
+
 #solitaire .container:nth-of-type(3) .card:nth-child(4) {
   top: 75%;
 }
+
 #solitaire .container:nth-of-type(3) .card:nth-child(5) {
   top: 100%;
 }
+
 #solitaire .container:nth-of-type(3) .card:nth-child(6) {
   top: 125%;
 }
+
 #solitaire .container:nth-of-type(3) .card:nth-child(7) {
   top: 150%;
 }
+
 #solitaire .card {
   background-size: contain;
   background-repeat: no-repeat;
@@ -300,6 +344,7 @@ html body #player {
   filter: none;
   transition: none;
   left: 0;
+  top: auto;
 }
 
 @keyframes flipCard {
@@ -315,6 +360,7 @@ html body #player {
     opacity: 1;
   }
 }
+
 @keyframes deckFlipCard {
   0% {
     transform: translateX(10%);
@@ -328,6 +374,7 @@ html body #player {
     opacity: 1;
   }
 }
+
 @keyframes returnCard {
   0% {
     transform: translateY(0);
@@ -341,6 +388,7 @@ html body #player {
     opacity: 1;
   }
 }
+
 @keyframes deckReturnCard {
   0% {
     transform: translateX(160%);
@@ -352,6 +400,7 @@ html body #player {
     transform: translateX(10%) rotateY(0);
   }
 }
+
 @keyframes removeCard {
   0% {
     opacity: 1;
@@ -361,4 +410,5 @@ html body #player {
     transform: scale(0.01);
     opacity: 0;
   }
-}/*# sourceMappingURL=main.css.map */
+}
+/*# sourceMappingURL=main.css.map */
