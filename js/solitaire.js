@@ -115,10 +115,30 @@ function takeCard() {
     }
 }
 
-//Function that sees which location a card should go to (meant for non-ace cards)
-// function findCardLocation(card) {
-    
-// }
+//Function that moves a card to one of the 4 main slots
+function moveToSlot(card, slot) {
+    const slotRect = slot.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const parentRect = card.parentElement.parentElement.getBoundingClientRect();
+    card.style.zIndex = 1;
+    card.style.animation = "none";
+    card.style.transform = "none";
+    if(card.parentElement.parentElement == document.getElementsByClassName("container")[1]) card.style.left = `${cardRect["left"] - parentRect["left"] - 8}px`;
+    setTimeout(() => {
+        card.style.transition = "left 0.75s, top 0.75s";
+        card.style.left = `${slotRect["left"] - card.parentElement.getBoundingClientRect()["left"] + 8}px`;
+        card.style.top = `${-parentRect["top"]}px`;
+        setTimeout(() => {
+            slot.appendChild(card);
+            card.style.left = "0";
+            card.style.top = "auto";
+            card.style.transform = "translateX(10%)";
+            card.style.transition = "none"
+            card.removeEventListener("mousedown",useCard);
+        }, 750);                        
+    }, 1);
+ 
+}
 
 
 //Function that lets you place a card into either one of the 7 columns or into one of the slots at the top right
@@ -126,34 +146,59 @@ function useCard() {
     const cardRank = this.getAttribute("cardrank");
     const cardSuit = this.getAttribute("cardsuit");
     let cardMoved = false;
+    const slots = document.getElementsByTagName("section");
     switch(cardRank) {
         case "ace":
-            const slots = document.getElementsByTagName("section");
             for(let i of slots) {
                 if(i.getAttribute("cardsuit")==cardSuit) {
-                    const slotRect = i.getBoundingClientRect();
-                    const cardRect = this.getBoundingClientRect();
-                    this.style.zIndex = 1;
-                    this.style.animation = "none";
-                    this.style.transform = "none";
-                    if(this.parentElement.parentElement == document.getElementsByClassName("container")[1]) this.style.left = `${cardRect["left"] - this.parentElement.parentElement.getBoundingClientRect()["left"] - 8}px`;
-                    setTimeout(() => {
-                        this.style.transition = "left 0.75s, top 0.75s";
-                        this.style.left = `${slotRect["left"] - this.parentElement.getBoundingClientRect()["left"] + 8}px`;
-                        this.style.top = `${-this.parentElement.parentElement.getBoundingClientRect()["top"]}px`;
-                        setTimeout(() => {
-                            i.appendChild(this);
-                            this.style.left = "0";
-                            this.style.top = "auto";
-                            this.style.transform = "translateX(10%)";
-                            this.style.transition = "none"
-                            this.removeEventListener("mousedown",useCard);
-                        }, 750);                        
-                    }, 1);
+                    moveToSlot(this, i);
+                    cardMoved = true;
+                }
+            } 
+        case "jack":
+            for(let i of slots) {
+                if(i.getAttribute("cardsuit") == cardSuit && i.lastElementChild && i.lastElementChild.getAttribute("cardrank") == 10) {
+                    moveToSlot(this, i);
+                    cardMoved = true; 
                 }
             }
-            cardMoved = true;
+            //PLACEHOLDER FOR COLUMN MOVEMENT
+        case "queen" :
+            for(let i of slots) {
+                if(i.getAttribute("cardsuit") == cardSuit && i.lastElementChild && i.lastElementChild.getAttribute("cardrank") == "jack") {
+                    moveToSlot(this, i);
+                    cardMoved = true;
+                }
+            }
+            //PLACEHOLDER FOR COLUMN MOVEMENT
+        case "king" :
+            for(let i of slots) {
+                if(i.getAttribute("cardsuit") == cardSuit && i.lastElementChild && i.lastElementChild.getAttribute("cardrank") == "queen") {
+                    moveToSlot(this, i);
+                    cardMoved = true;
+                }
+            }
+            //PLACEHOLDER FOR COLUMN MOVEMENT
+        case "2" :
+            for(let i of slots) {
+                if(i.getAttribute("cardsuit") == cardSuit && i.lastElementChild && i.lastElementChild.getAttribute("cardrank") == "ace") {
+                    moveToSlot(this, i);
+                    cardMoved = true;
+                }
+            }
+            //PLACEHOLDER FOR COLUMN MOVEMENT
         default:
+            if(!cardMoved) {
+                for(let i of slots) {
+                    if(i.getAttribute("cardsuit") == cardSuit && i.lastElementChild && i.lastElementChild.getAttribute("cardrank") == parseInt(cardRank)-1) {
+                        moveToSlot(this, i);
+                        cardMoved = true;
+                    }
+                }                
+            }
+
+            //PLACEHOLDER FOR COLUMN MOVEMENT
+            //Code that flips over any hidden card
             if(cardMoved && this.parentElement.children[0] != this && this.parentElement.parentElement == document.getElementsByClassName("container")[2]) {
                 const prevCard = this.previousElementSibling;
                 prevCard.style.animation = "flipCard 0.5s";
