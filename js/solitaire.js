@@ -115,6 +115,43 @@ function takeCard() {
     }
 }
 
+//Funcion that determines whether a card should be moved to one of the slots or to a column
+function determineSpot(card, slots, columns, slotRank, columnRank) {
+    const cardSuit = card.getAttribute("cardsuit");
+    let cardMoved = false;
+    //Places the card into one of the 4 slots
+    for(let i of slots) {
+        const lastCard = i.lastElementChild;
+        if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == slotRank) {
+            moveToSlot(card, i);
+            cardMoved = true; 
+        }
+    }
+    //Moves the card into one of the 7 columns if they weren't moved into a slot
+    if(!cardMoved) {
+        if(cardSuit == "spades" || cardSuit == "clubs") {
+            for(let i of columns) {
+                const lastCard = i.lastElementChild;
+                if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == columnRank) {
+                    moveToColumn(card, i);
+                    cardMoved = true;
+                    break;
+                }
+            }
+        }else{
+            for(let i of columns) {
+                const lastCard = i.lastElementChild;
+                if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == columnRank) {
+                    moveToColumn(card, i);
+                    cardMoved = true;
+                    break;
+                }                       
+            }
+        }
+    }
+    return cardMoved;
+}
+
 //Function that moves a card to one of the 4 main slots
 function moveToSlot(card, slot) {
     const slotRect = slot.getBoundingClientRect();
@@ -182,68 +219,10 @@ function useCard() {
             } 
             break;
         case "jack":
-            for(let i of slots) {
-                const lastCard = i.lastElementChild;
-                if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "10") {
-                    moveToSlot(this, i);
-                    cardMoved = true; 
-                }
-            }
-            if(!cardMoved) {
-                if(cardSuit == "spades" || cardSuit == "clubs") {
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "queen") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }
-                    }
-                }else{
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "queen") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }                       
-                    }
-                }
-            }
+            cardMoved = determineSpot(this, slots, columns, "10", "queen");
             break;
         case "queen" :
-            for(let i of slots) {
-                const lastCard = i.lastElementChild;
-                if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "jack") {
-                    moveToSlot(this, i);
-                    cardMoved = true;
-                }
-            }
-            if(!cardMoved) {
-                if(cardSuit == "spades" || cardSuit == "clubs") {
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == "king") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }
-                    }
-                }else{
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "king") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }                       
-                    }
-                }
-            }
+            cardMoved = determineSpot(this, slots, columns, "jack","king");
             break;
         case "king" :
             for(let i of slots) {
@@ -258,7 +237,6 @@ function useCard() {
                     const lastCard = i.lastElementChild;
                     if(!lastCard) {
                         moveToColumn(this, i);
-                        console.log("I'm supposed to move!");
                         cardMoved = true;
                         break;
                     }
@@ -266,104 +244,15 @@ function useCard() {
             }
             break;
         case "2" :
-            for(let i of slots) {
-                const lastCard = i.lastElementChild;
-                if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "ace") {
-                    moveToSlot(this, i);
-                    cardMoved = true;
-                }
-            }
-            if(!cardMoved) {
-                if(cardSuit == "spades" || cardSuit == "clubs") {
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "3") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }
-                    }
-                }else{
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "3") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }                       
-                    }
-                }
-            }
+            cardMoved = determineSpot(this, slots, columns, "ace", "3");
             break;
-
         case "10" :
-            for(let i of slots) {
-                const lastCard = i.lastElementChild;
-                if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "9") {
-                    moveToSlot(this, i);
-                    cardMoved = true;
-                }
-            }
-            if(!cardMoved) {
-                if(cardSuit == "spades" || cardSuit == "clubs") {
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "jack") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }
-                    }
-                }else{
-                    for(let i of columns) {
-                        const lastCard = i.lastElementChild;
-                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "jack") {
-                            moveToColumn(this, i);
-                            console.log("I'm supposed to move!");
-                            cardMoved = true;
-                            break;
-                        }                       
-                    }
-                }
-            }
+            cardMoved = determineSpot(this, slots, columns, "9", "jack");
             break;            
         default:
-            if(!cardMoved) {
-                for(let i of slots) {
-                    const lastCard = i.lastElementChild;
-                    if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)-1) {
-                        moveToSlot(this, i);
-                        cardMoved = true;
-                    }
-                }
-                if(!cardMoved) {
-                    if(cardSuit == "spades" || cardSuit == "clubs") {
-                        for(let i of columns) {
-                            const lastCard = i.lastElementChild;
-                            if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
-                                moveToColumn(this, i);
-                                console.log("I'm supposed to move!");
-                                cardMoved = true;
-                                break;
-                            }
-                        }
-                    }else{
-                        for(let i of columns) {
-                            const lastCard = i.lastElementChild;
-                            if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
-                                moveToColumn(this, i);
-                                console.log("I'm supposed to move!");
-                                cardMoved = true;
-                                break;
-                            }                       
-                        }
-                    }
-                }                
-            }
+            cardMoved = determineSpot(this, slots, columns, parseInt(cardRank)-1, parseInt(cardRank)+1);
     }
+    
     //Code that flips over any hidden card
     if(cardMoved && this.parentElement.children[0] != this && this.parentElement.parentElement == document.getElementsByClassName("container")[2]) {
         const prevCard = this.previousElementSibling;
