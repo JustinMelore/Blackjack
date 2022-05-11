@@ -320,8 +320,8 @@ html {
   .card {
     background-size: contain;
     background-repeat: no-repeat;
-    width: 10vw;
-    height: 12vw;
+    width: calc(6vw + 6vh);
+    height: calc(6vw + 6vh);
     position: absolute;
     transform: translateX(10%);
     cursor: pointer;
@@ -329,6 +329,7 @@ html {
     transition: none;
     left: 0;
     top: auto;
+    z-index: 1;
   }
 }
 

@@ -141,7 +141,26 @@ function moveToSlot(card, slot) {
 
 //Function that moves a card and the cards below it into one of the 7 columns
 function moveToColumn(card, slot) {
-
+    const parent = card.parentElement;
+    const slotRect = slot.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+    const cardIndex = Array.from(parent.children).indexOf(card);
+    for(let i=cardIndex; i<parent.children.length; i++) {
+        const currentCard = parent.children[i];
+        currentCard.style.zIndex = parseInt(window.getComputedStyle(parent.lastElementChild)["zIndex"])+1
+        currentCard.style.animation = "none";
+        currentCard.style.transition = "top 0.75s, left 0.75s";
+        (parent.parentElement != document.getElementsByClassName("container")[1]) ? currentCard.style.top = `${slot.children.length * 25}%` : currentCard.style.top = `calc(${(slot.children.length+(i-cardIndex))*25}% + ${slotRect["top"]}px)`;
+        currentCard.style.left = `${slotRect["left"] - parentRect["left"]}px`;
+        setTimeout(() => {
+            slot.appendChild(currentCard);
+            currentCard.style.left = "0";
+            currentCard.style.transition = "none";
+            currentCard.style.transform = `translateX(10%)`;
+            currentCard.style.top = `${(slot.children.length - 1) * 25}%`;
+        }, 750);
+        if(parent.parentElement == document.getElementsByClassName("container")[1]) break;        
+    }
 }
 
 
@@ -171,23 +190,24 @@ function useCard() {
                 }
             }
             if(!cardMoved) {
-                console.log(columns);
                 if(cardSuit == "spades" || cardSuit == "clubs") {
                     for(let i of columns) {
                         const lastCard = i.lastElementChild;
                         if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "queen") {
-                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                            moveToColumn(this, i);
                             console.log("I'm supposed to move!");
                             cardMoved = true;
+                            break;
                         }
                     }
                 }else{
                     for(let i of columns) {
                         const lastCard = i.lastElementChild;
-                        if((lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "queen") {
-                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "queen") {
+                            moveToColumn(this, i);
                             console.log("I'm supposed to move!");
                             cardMoved = true;
+                            break;
                         }                       
                     }
                 }
@@ -205,19 +225,21 @@ function useCard() {
                 if(cardSuit == "spades" || cardSuit == "clubs") {
                     for(let i of columns) {
                         const lastCard = i.lastElementChild;
-                        if((lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == "king") {
-                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == "king") {
+                            moveToColumn(this, i);
                             console.log("I'm supposed to move!");
                             cardMoved = true;
+                            break;
                         }
                     }
                 }else{
                     for(let i of columns) {
                         const lastCard = i.lastElementChild;
-                        if((lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "king") {
-                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "king") {
+                            moveToColumn(this, i);
                             console.log("I'm supposed to move!");
                             cardMoved = true;
+                            break;
                         }                       
                     }
                 }
@@ -235,9 +257,10 @@ function useCard() {
                 for(let i of columns) {
                     const lastCard = i.lastElementChild;
                     if(!lastCard) {
-                        //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                        moveToColumn(this, i);
                         console.log("I'm supposed to move!");
                         cardMoved = true;
+                        break;
                     }
                 }
             }
@@ -250,30 +273,63 @@ function useCard() {
                     cardMoved = true;
                 }
             }
+            if(!cardMoved) {
+                if(cardSuit == "spades" || cardSuit == "clubs") {
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "3") {
+                            moveToColumn(this, i);
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                            break;
+                        }
+                    }
+                }else{
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "3") {
+                            moveToColumn(this, i);
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                            break;
+                        }                       
+                    }
+                }
+            }
             break;
 
-        // case "10" :
-        //     if(this.parentElement) {
-        //         if(cardSuit == "spades" || cardSuit == "clubs") {
-        //             for(let i of slots) {
-        //                 const lastCard = i.lastElementChild;
-        //                 if((i.getAttribute("cardsuit") == "hearts" || i.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == "ace") {
-        //                     //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-        //                     console.log("I'm supposed to move!");
-        //                     cardMoved = true;
-        //                 }
-        //             }
-        //         }else{
-        //             for(let i of slots) {
-        //                 const lastCard = i.lastElementChild;
-        //                 if((i.getAttribute("cardsuit") == "clubs" || i.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "ace") {
-        //                     //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-        //                     console.log("I'm supposed to move!");
-        //                     cardMoved = true;
-        //                 }                       
-        //             }
-        //         }
-        //     }            
+        case "10" :
+            for(let i of slots) {
+                const lastCard = i.lastElementChild;
+                if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "9") {
+                    moveToSlot(this, i);
+                    cardMoved = true;
+                }
+            }
+            if(!cardMoved) {
+                if(cardSuit == "spades" || cardSuit == "clubs") {
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "jack") {
+                            moveToColumn(this, i);
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                            break;
+                        }
+                    }
+                }else{
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "jack") {
+                            moveToColumn(this, i);
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                            break;
+                        }                       
+                    }
+                }
+            }
+            break;            
         default:
             if(!cardMoved) {
                 for(let i of slots) {
@@ -287,19 +343,21 @@ function useCard() {
                     if(cardSuit == "spades" || cardSuit == "clubs") {
                         for(let i of columns) {
                             const lastCard = i.lastElementChild;
-                            if((lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
-                                //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                            if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
+                                moveToColumn(this, i);
                                 console.log("I'm supposed to move!");
                                 cardMoved = true;
+                                break;
                             }
                         }
                     }else{
                         for(let i of columns) {
                             const lastCard = i.lastElementChild;
-                            if((lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
-                                //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                            if(lastCard && (lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
+                                moveToColumn(this, i);
                                 console.log("I'm supposed to move!");
                                 cardMoved = true;
+                                break;
                             }                       
                         }
                     }
