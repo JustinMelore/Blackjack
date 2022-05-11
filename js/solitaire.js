@@ -151,6 +151,8 @@ function useCard() {
     const cardSuit = this.getAttribute("cardsuit");
     let cardMoved = false;
     const slots = Array.from(document.getElementsByTagName("section")).slice(0,4);
+    let columns = Array.from(document.getElementsByTagName("section"));
+    columns = columns.slice(5, columns.length);
     switch(cardRank) {
         case "ace":
             for(let i of slots) {
@@ -168,27 +170,28 @@ function useCard() {
                     cardMoved = true; 
                 }
             }
-            // if(!cardMoved) {
-            //     if(cardSuit == "spades" || cardSuit == "clubs") {
-            //         for(let i of slots) {
-            //             const lastCard = i.lastElementChild;
-            //             if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "queen") {
-            //                 //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-            //                 console.log("I'm supposed to move!");
-            //                 cardMoved = true;
-            //             }
-            //         }
-            //     }else{
-            //         for(let i of slots) {
-            //             const lastCard = i.lastElementChild;
-            //             if((i.getAttribute("cardsuit") == "clubs" || i.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "queen") {
-            //                 //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-            //                 console.log("I'm supposed to move!");
-            //                 cardMoved = true;
-            //             }                       
-            //         }
-            //     }
-            // }
+            if(!cardMoved) {
+                console.log(columns);
+                if(cardSuit == "spades" || cardSuit == "clubs") {
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if(lastCard && (lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") &&  lastCard.getAttribute("cardrank") == "queen") {
+                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                        }
+                    }
+                }else{
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if((lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "queen") {
+                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                        }                       
+                    }
+                }
+            }
             break;
         case "queen" :
             for(let i of slots) {
@@ -198,27 +201,27 @@ function useCard() {
                     cardMoved = true;
                 }
             }
-            // if(!cardMoved) {
-            //     if(cardSuit == "spades" || cardSuit == "clubs") {
-            //         for(let i of slots) {
-            //             const lastCard = i.lastElementChild;
-            //             if((i.getAttribute("cardsuit") == "hearts" || i.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == "king") {
-            //                 //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-            //                 console.log("I'm supposed to move!");
-            //                 cardMoved = true;
-            //             }
-            //         }
-            //     }else{
-            //         for(let i of slots) {
-            //             const lastCard = i.lastElementChild;
-            //             if((i.getAttribute("cardsuit") == "clubs" || i.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "king") {
-            //                 //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-            //                 console.log("I'm supposed to move!");
-            //                 cardMoved = true;
-            //             }                       
-            //         }
-            //     }
-            // }
+            if(!cardMoved) {
+                if(cardSuit == "spades" || cardSuit == "clubs") {
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if((lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == "king") {
+                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                        }
+                    }
+                }else{
+                    for(let i of columns) {
+                        const lastCard = i.lastElementChild;
+                        if((lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == "king") {
+                            //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                            console.log("I'm supposed to move!");
+                            cardMoved = true;
+                        }                       
+                    }
+                }
+            }
             break;
         case "king" :
             for(let i of slots) {
@@ -228,18 +231,16 @@ function useCard() {
                     cardMoved = true;
                 }
             }
-            // if(!cardMoved) {
-            //     if(cardSuit == "spades" || cardSuit == "clubs") {
-            //         for(let i of slots) {
-            //             const lastCard = i.lastElementChild;
-            //             if(!lastCard) {
-            //                 //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-            //                 console.log("I'm supposed to move!");
-            //                 cardMoved = true;
-            //             }
-            //         }
-            //     }
-            // }
+            if(!cardMoved) {
+                for(let i of columns) {
+                    const lastCard = i.lastElementChild;
+                    if(!lastCard) {
+                        //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                        console.log("I'm supposed to move!");
+                        cardMoved = true;
+                    }
+                }
+            }
             break;
         case "2" :
             for(let i of slots) {
@@ -282,32 +283,30 @@ function useCard() {
                         cardMoved = true;
                     }
                 }
-                // if(!cardMoved) {
-                //     if(cardSuit == "spades" || cardSuit == "clubs") {
-                //         for(let i of slots) {
-                //             const lastCard = i.lastElementChild;
-                //             if((i.getAttribute("cardsuit") == "hearts" || i.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == 10) {
-                //                 //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-                //                 console.log("I'm supposed to move!");
-                //                 cardMoved = true;
-                //             }
-                //         }
-                //     }else{
-                //         for(let i of slots) {
-                //             const lastCard = i.lastElementChild;
-                //             if((i.getAttribute("cardsuit") == "clubs" || i.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == 10) {
-                //                 //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
-                //                 console.log("I'm supposed to move!");
-                //                 cardMoved = true;
-                //             }                       
-                //         }
-                //     }
-                // }                
+                if(!cardMoved) {
+                    if(cardSuit == "spades" || cardSuit == "clubs") {
+                        for(let i of columns) {
+                            const lastCard = i.lastElementChild;
+                            if((lastCard.getAttribute("cardsuit") == "hearts" || lastCard.getAttribute("cardsuit") == "diamonds") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
+                                //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                                console.log("I'm supposed to move!");
+                                cardMoved = true;
+                            }
+                        }
+                    }else{
+                        for(let i of columns) {
+                            const lastCard = i.lastElementChild;
+                            if((lastCard.getAttribute("cardsuit") == "clubs" || lastCard.getAttribute("cardsuit") == "spades") && lastCard && lastCard.getAttribute("cardrank") == parseInt(cardRank)+1) {
+                                //PLACEHOLDER FOR COLUMN MOVEMENT FUNCTION
+                                console.log("I'm supposed to move!");
+                                cardMoved = true;
+                            }                       
+                        }
+                    }
+                }                
             }
-
-            //Code that flips over any hidden card
-
     }
+    //Code that flips over any hidden card
     if(cardMoved && this.parentElement.children[0] != this && this.parentElement.parentElement == document.getElementsByClassName("container")[2]) {
         const prevCard = this.previousElementSibling;
         const prevCardRank = prevCard.getAttribute("cardrank");
