@@ -203,7 +203,6 @@ function moveToColumn(card, slot) {
     }
 }
 
-
 //Function that lets you place a card into either one of the 7 columns or into one of the slots at the top right
 function useCard() {
     const cardRank = this.getAttribute("cardrank");
@@ -257,8 +256,8 @@ function useCard() {
     }
 
     //Code that flips over any hidden card
-    if(cardMoved && this.parentElement.children[0] != this && this.parentElement.parentElement == document.getElementsByClassName("container")[2]) {
-        const prevCard = this.previousElementSibling;
+    const prevCard = this.previousElementSibling;
+    if(cardMoved && this.parentElement.children[0] != this && this.parentElement.parentElement == document.getElementsByClassName("container")[2] && window.getComputedStyle(prevCard)["backgroundImage"].indexOf("cardback.svg")>-1) {
         const prevCardRank = prevCard.getAttribute("cardrank");
         const prevCardSuit = prevCard.getAttribute("cardsuit");
         prevCard.style.animation = "flipCard 0.5s";
