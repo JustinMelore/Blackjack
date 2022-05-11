@@ -119,14 +119,17 @@ function takeCard() {
 function determineSpot(card, slots, columns, slotRank, columnRank) {
     const cardSuit = card.getAttribute("cardsuit");
     let cardMoved = false;
-    //Places the card into one of the 4 slots
-    for(let i of slots) {
-        const lastCard = i.lastElementChild;
-        if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == slotRank) {
-            moveToSlot(card, i);
-            cardMoved = true; 
-        }
+    //Places the card into one of the 4 slots if they're at the bottom of their respective column
+    if(!(card.parentElement.parentElement == document.getElementsByClassName("container")[2] && card != card.parentElement.lastElementChild)) {
+        for(let i of slots) {
+            const lastCard = i.lastElementChild;
+            if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == slotRank) {
+                moveToSlot(card, i);
+                cardMoved = true; 
+            }
+        }           
     }
+
     //Moves the card into one of the 7 columns if they weren't moved into a slot
     if(!cardMoved) {
         if(cardSuit == "spades" || cardSuit == "clubs") {
@@ -252,7 +255,7 @@ function useCard() {
         default:
             cardMoved = determineSpot(this, slots, columns, parseInt(cardRank)-1, parseInt(cardRank)+1);
     }
-    
+
     //Code that flips over any hidden card
     if(cardMoved && this.parentElement.children[0] != this && this.parentElement.parentElement == document.getElementsByClassName("container")[2]) {
         const prevCard = this.previousElementSibling;
