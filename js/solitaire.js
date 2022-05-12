@@ -190,6 +190,7 @@ function moveToColumn(card, slot) {
         currentCard.style.zIndex = parseInt(window.getComputedStyle(parent.lastElementChild)["zIndex"])+1
         currentCard.style.animation = "none";
         currentCard.style.transition = "top 0.75s, left 0.75s";
+        currentCard.style.transform = "none";
         (parent.parentElement != document.getElementsByClassName("container")[1]) ? currentCard.style.top = `${slot.children.length * 25}%` : currentCard.style.top = `calc(${(slot.children.length+(i-cardIndex))*25}% + ${slotRect["top"]}px)`;
         currentCard.style.left = `${slotRect["left"] - parentRect["left"]}px`;
         setTimeout(() => {
