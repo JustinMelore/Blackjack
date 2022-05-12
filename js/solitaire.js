@@ -187,7 +187,6 @@ function moveToColumn(card, slot) {
     const cardIndex = Array.from(parent.children).indexOf(card);
     for(let i=cardIndex; i<parent.children.length; i++) {
         const currentCard = parent.children[i];
-        currentCard.style.zIndex = parseInt(window.getComputedStyle(parent.lastElementChild)["zIndex"])+1
         currentCard.style.animation = "none";
         currentCard.style.transition = "top 0.75s, left 0.75s";
         currentCard.style.transform = "none";
@@ -195,6 +194,9 @@ function moveToColumn(card, slot) {
         currentCard.style.left = `${slotRect["left"] - parentRect["left"]}px`;
         setTimeout(() => {
             slot.appendChild(currentCard);
+            // console.log(card.parentElement.lastElementChild);
+            // console.log(parseInt(window.getComputedStyle(card.parentElement.lastElementChild)["zIndex"]));
+            if(currentCard.parentElement.children.length > 1)currentCard.style.zIndex = parseInt(window.getComputedStyle(currentCard.parentElement.children[currentCard.parentElement.children.length-2])["zIndex"])+1;
             currentCard.style.left = "0";
             currentCard.style.transition = "none";
             currentCard.style.transform = `translateX(10%)`;
