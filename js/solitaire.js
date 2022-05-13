@@ -155,6 +155,8 @@ function determineSpot(card, slots, columns, slotRank, columnRank) {
     return cardMoved;
 }
 
+
+
 //Function that moves a card to one of the 4 main slots
 function moveToSlot(card, slot) {
     const slotRect = slot.getBoundingClientRect();
@@ -190,9 +192,8 @@ function moveToColumn(card, slot) {
         if(window.getComputedStyle(currentCard)["animation"] == "none") break;
         currentCard.style.animation = "none";
         currentCard.style.transition = "top 0.75s, left 0.75s";
-        console.log(window.getComputedStyle(currentCard)["transition"]);
         currentCard.style.transform = "none";
-        (parent.parentElement == document.getElementsByClassName("container")[2]) ? currentCard.style.top = `${slot.children.length * 25}%` : currentCard.style.top = `calc(${(slot.children.length+(i-cardIndex))*25}% + ${slotRect["top"]}px)`;
+        (parent.parentElement == document.getElementsByClassName("container")[2]) ? currentCard.style.top = `${(slot.children.length+i-cardIndex) * 25}%` : currentCard.style.top = `calc(${(slot.children.length)*25}% + ${slotRect["top"]}px)`;
         currentCard.style.left = `${slotRect["left"] - parentRect["left"]}px`;
         setTimeout(() => {
             slot.appendChild(currentCard);
