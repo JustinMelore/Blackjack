@@ -265,6 +265,10 @@ html body #player {
   flex-direction: column;
 }
 
+#solitaire img {
+  width: calc(1vw + 1vh);
+}
+
 #solitaire section {
   background-color: crimson;
   border: 0.5rem solid gray;
@@ -304,7 +308,7 @@ html body #player {
 }
 
 #solitaire .container:nth-of-type(3) {
-  top: 35vh;
+  top: 30vh;
   left: 50vw;
   transform: translateX(-50%);
 }
@@ -312,8 +316,8 @@ html body #player {
 #solitaire .card {
   background-size: contain;
   background-repeat: no-repeat;
-  width: calc(6vw + 6vh);
-  height: calc(6vw + 6vh);
+  width: calc(5vw + 5vh);
+  height: calc(5vw + 5vh);
   position: absolute;
   transform: translateX(10%);
   cursor: pointer;

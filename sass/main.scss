@@ -272,6 +272,10 @@ html {
 
 //Styling specifically for solitaire
 #solitaire {
+  img {
+    width: calc(1vw + 1vh);
+  }
+  
   section {
     background-color: crimson;
     border: 0.5rem solid gray;
@@ -311,7 +315,7 @@ html {
     }
 
     &:nth-of-type(3) {
-      top: 35vh;
+      top: 30vh;
       left: 50vw;
       transform: translateX(-50%);
     }
@@ -320,8 +324,8 @@ html {
   .card {
     background-size: contain;
     background-repeat: no-repeat;
-    width: calc(6vw + 6vh);
-    height: calc(6vw + 6vh);
+    width: calc(5vw + 5vh);
+    height: calc(5vw + 5vh);
     position: absolute;
     transform: translateX(10%);
     cursor: pointer;

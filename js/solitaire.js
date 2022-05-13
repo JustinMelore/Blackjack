@@ -250,11 +250,13 @@ function useCard() {
             cardMoved = determineSpot(this, slots, columns, "jack","king");
             break;
         case "king" :
-            for(let i of slots) {
-                const lastCard = i.lastElementChild;
-                if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "queen") {
-                    moveToSlot(this, i);
-                    cardMoved = true;
+            if(!(card.parentElement.parentElement == document.getElementsByClassName("container")[2] && card != card.parentElement.lastElementChild)) {
+                for(let i of slots) {
+                    const lastCard = i.lastElementChild;
+                    if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "queen") {
+                        moveToSlot(this, i);
+                        cardMoved = true;
+                    }
                 }
             }
             if(!cardMoved) {
