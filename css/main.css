@@ -37,11 +37,11 @@ main a {
 }
 
 main a img {
-  width: calc(10vw + 10vw);
+  width: calc(7vw + 7vw);
 }
 
 main a p {
-  font-size: calc(1.25vw + 1.25vh);
+  font-size: calc(2vw + 2vh);
   color: orange;
   font-weight: bolder;
   text-shadow: 1px 1px black;
@@ -340,6 +340,7 @@ html body #player {
 
 #solitaire .wins:nth-of-type(1) img {
   width: calc(2vw + 2vh);
+  opacity: 1;
 }
 
 #solitaire .wins:nth-of-type(1):hover {
@@ -393,11 +394,13 @@ html body #player {
 
 #solitaire #winScreen div:hover img {
   transform: scale(1.2);
+  opacity: 1;
 }
 
 #solitaire #winScreen img {
   width: 5vw;
   transition: 0.25s;
+  opacity: 1;
 }
 
 #solitaire #winScreen span {
