@@ -190,9 +190,9 @@ function moveToSlot(card, slot) {
         card.style.top = `${-parentRect["top"]}px`;
         setTimeout(() => {
             slot.appendChild(card);
-            card.style.left = "0";
+            card.style.left = "50%";
             card.style.top = "0";
-            card.style.transform = "translateX(10%)";
+            card.style.transform = "translateX(-50%)";
             card.style.transition = "none"
             if(card.getAttribute("cardrank") == "ace" || card.getAttribute("cardrank") == "king") card.removeEventListener("mousedown",useCard);
             checkWin();
@@ -217,9 +217,9 @@ function moveToColumn(card, slot) {
         setTimeout(() => {
             slot.appendChild(currentCard);
             if(currentCard.parentElement.children.length > 1)currentCard.style.zIndex = parseInt(window.getComputedStyle(currentCard.parentElement.children[currentCard.parentElement.children.length-2])["zIndex"])+1;
-            currentCard.style.left = "0";
+            currentCard.style.left = "50%";
             currentCard.style.transition = "none";
-            currentCard.style.transform = `translateX(10%)`;
+            currentCard.style.transform = `translateX(-50%)`;
             currentCard.style.top = `${(slot.children.length - 1) * 25}%`;
         }, 750);
         if(parent.parentElement == document.getElementsByClassName("container")[1]) break;        
@@ -250,7 +250,7 @@ function useCard() {
             cardMoved = determineSpot(this, slots, columns, "jack","king");
             break;
         case "king" :
-            if(!(card.parentElement.parentElement == document.getElementsByClassName("container")[2] && card != card.parentElement.lastElementChild)) {
+            if(!(this.parentElement.parentElement == document.getElementsByClassName("container")[2] && this != this.parentElement.lastElementChild)) {
                 for(let i of slots) {
                     const lastCard = i.lastElementChild;
                     if(i.getAttribute("cardsuit") == cardSuit && lastCard && lastCard.getAttribute("cardrank") == "queen") {
@@ -288,7 +288,7 @@ function useCard() {
         prevCard.style.animation = "flipCard 0.5s";
         setTimeout(() => {
             prevCard.style.backgroundImage = `url('images/${prevCardRank}_of_${prevCardSuit}.svg')`;
-            setTimeout(() => {prevCard.style.transform = "translateX(10%)"}, 250);
+            setTimeout(() => {prevCard.style.transform = "translateX(-50%)"}, 250);
         }, 250);
         prevCard.addEventListener("mousedown",useCard);
     }

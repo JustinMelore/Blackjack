@@ -273,17 +273,18 @@ html {
 //Styling specifically for solitaire
 #solitaire {
   img {
-    width: calc(1vw + 1vh);
+    width: 100%;
+    height: 100%;
   }
   
   section {
-    background-color: crimson;
+    background-color: rgba(220, 20, 60, 0.6);
     border: 0.5rem solid gray;
-    opacity: 60%;
-    border-radius: 2rem;
+    opacity: 1;
+    border-radius: 2vw;
     padding: 2vw;
-    width: 10vw;
-    height: 10vw;
+    width: calc(5vw + 5vh);
+    height: calc(5vw + 5vh);
     position: static;
     display: flex;
     justify-content: center;
@@ -327,13 +328,15 @@ html {
     width: calc(5vw + 5vh);
     height: calc(5vw + 5vh);
     position: absolute;
-    transform: translateX(10%);
+    transform: translateX(-50%);
     cursor: pointer;
     filter: none;
     transition: none;
-    left: 0;
+    left: 50%;
     top: 0;
     z-index: 1;
+    background-position: center;
+    // filter: brightness(90%);
   }
 
   .wins {
@@ -426,7 +429,7 @@ html {
 //Alternate version of flipCard made with solitaire in mind
 @keyframes deckFlipCard {
   0% {
-    transform: translateX(10%);
+    transform: translateX(-50%);
     opacity: 1;
   }
   50% {
@@ -466,7 +469,7 @@ html {
     }
     
     100% {
-      transform: translateX(10%) rotateY(0);
+      transform: translateX(-50%) rotateY(0);
     }
 }
 
