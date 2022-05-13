@@ -101,8 +101,10 @@ const cardsMoving = () => {
 function takeCard() {
     //Code for drawing a card from the deck
     if(!cardsMoving()) {
+        const reset = document.getElementsByTagName("img")[0];
         if(this.className == "card") {
             const lastCard = this.nextElementSibling;
+            if(this.previousElementSibling == reset) reset.style.opacity = 1;
             (lastCard) ? this.style.zIndex = parseInt(window.getComputedStyle(lastCard)["zIndex"])+1 : this.style.zIndex = 1;
             this.style.animation = "deckFlipCard 0.5s forwards";
             setTimeout(() => {
@@ -112,6 +114,7 @@ function takeCard() {
             this.addEventListener("mousedown",useCard);
         }else{
             //Code for if all of the cards have been seen
+            reset.style.opacity = 0;
             const cards = this.parentElement.children;
             for(let i=1; i<cards.length; i++) {
                 cards[i].style.zIndex = 1;
