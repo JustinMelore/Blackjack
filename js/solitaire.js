@@ -171,7 +171,7 @@ function moveToSlot(card, slot) {
         setTimeout(() => {
             slot.appendChild(card);
             card.style.left = "0";
-            card.style.top = "auto";
+            card.style.top = "0";
             card.style.transform = "translateX(10%)";
             card.style.transition = "none"
             if(card.getAttribute("cardrank") == "ace" || card.getAttribute("cardrank") == "king") card.removeEventListener("mousedown",useCard);
@@ -187,10 +187,12 @@ function moveToColumn(card, slot) {
     const cardIndex = Array.from(parent.children).indexOf(card);
     for(let i=cardIndex; i<parent.children.length; i++) {
         const currentCard = parent.children[i];
+        if(window.getComputedStyle(currentCard)["animation"] == "none") break;
         currentCard.style.animation = "none";
         currentCard.style.transition = "top 0.75s, left 0.75s";
+        console.log(window.getComputedStyle(currentCard)["transition"]);
         currentCard.style.transform = "none";
-        (parent.parentElement != document.getElementsByClassName("container")[1]) ? currentCard.style.top = `${slot.children.length * 25}%` : currentCard.style.top = `calc(${(slot.children.length+(i-cardIndex))*25}% + ${slotRect["top"]}px)`;
+        (parent.parentElement == document.getElementsByClassName("container")[2]) ? currentCard.style.top = `${slot.children.length * 25}%` : currentCard.style.top = `calc(${(slot.children.length+(i-cardIndex))*25}% + ${slotRect["top"]}px)`;
         currentCard.style.left = `${slotRect["left"] - parentRect["left"]}px`;
         setTimeout(() => {
             slot.appendChild(currentCard);
