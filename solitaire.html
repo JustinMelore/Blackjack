@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body id="solitaire">
-    <!-- Player wins -->
-    <p class="wins">Player Wins: 0</p>
+    
     
     <!-- Container for the stacks -->
     <div class="container">
@@ -38,11 +37,15 @@
     <!-- Popup after the game finishes -->
     <section id="winScreen">
         <h1>You <span>Win!</span></h1>
+        <p class="wins">Player Wins: 0</p>
         <div>
             <p>Play Again</p>
             <img src="images/reload.svg" alt="Redo" id="redo">
         </div>
     </section>
+
+    <!-- Option to start a new game -->
+    <p class="wins"><img src="images/add.svg">Start New Game</p>
     <script src="js/solitaire.js"></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 //Keeps track of the player's wins
 var playerWins = 0;
-document.getElementsByClassName("wins").textContent = `Player Wins: ${playerWins}`;
 
 //A class for making a playing card
 class Card {
@@ -89,6 +88,7 @@ resetCards(deck);
 
 //Gives functionality to both the replay button on the win screen and the new game button
 document.getElementsByTagName("img")[1].addEventListener("mousedown",()=> {resetCards(deck)});
+document.getElementsByClassName("wins")[1].addEventListener("mousedown", ()=> {resetCards(deck)});
 
 //Function that checks to make sure no cards are currently being moved into a different pile so that styling problems don't occur
 const cardsMoving = () => {
