@@ -49,12 +49,18 @@ class Deck {
 
 //Deck of all available cards
 var deck = new Deck();
-deck.resetDeck();
 
 //Resets the cards for the game
 let resetCards = (cardDeck) => {
-    const cardList = document.getElementsByClassName("card");
+    cardDeck.resetDeck();
+
+    //Makes the win screen disappear
+    const winScreen = document.getElementById("winScreen");
+    winScreen.style.zIndex = -1;
+    winScreen.style.opacity = 0;
+
     //Gets rid of cards already loaded in
+    const cardList = document.getElementsByClassName("card");
     for(let i=0; i<cardList.length; i++) {
         cardList[0].remove();
         i--;
@@ -80,6 +86,9 @@ let resetCards = (cardDeck) => {
 }
 
 resetCards(deck);
+
+//Gives functionality to both the replay button on the win screen and the new game button
+document.getElementsByTagName("img")[1].addEventListener("mousedown",()=> {resetCards(deck)});
 
 //Function that checks to make sure no cards are currently being moved into a different pile so that styling problems don't occur
 const cardsMoving = () => {
@@ -155,7 +164,16 @@ function determineSpot(card, slots, columns, slotRank, columnRank) {
     return cardMoved;
 }
 
-
+//Function that checks to see if the player won
+const checkWin = () => {
+    const slots = document.getElementsByClassName("container")[0].children;
+    for(let i of slots) if(!i.lastElementChild || i.lastElementChild.getAttribute("cardrank") != "king") return;
+    const winScreen = document.getElementById("winScreen");
+    winScreen.style.zIndex = 2;
+    winScreen.style.opacity = 1;
+    playerWins++;
+    document.getElementsByClassName("wins")[0].textContent = `Player Wins: ${playerWins}`;
+}
 
 //Function that moves a card to one of the 4 main slots
 function moveToSlot(card, slot) {
@@ -177,6 +195,7 @@ function moveToSlot(card, slot) {
             card.style.transform = "translateX(10%)";
             card.style.transition = "none"
             if(card.getAttribute("cardrank") == "ace" || card.getAttribute("cardrank") == "king") card.removeEventListener("mousedown",useCard);
+            checkWin();
         }, 750);                        
     }, 1);
 }
