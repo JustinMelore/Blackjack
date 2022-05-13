@@ -174,7 +174,7 @@ function moveToSlot(card, slot) {
             card.style.top = "auto";
             card.style.transform = "translateX(10%)";
             card.style.transition = "none"
-            card.removeEventListener("mousedown",useCard);
+            if(card.getAttribute("cardrank") == "ace" || card.getAttribute("cardrank") == "king") card.removeEventListener("mousedown",useCard);
         }, 750);                        
     }, 1);
 }
@@ -194,8 +194,6 @@ function moveToColumn(card, slot) {
         currentCard.style.left = `${slotRect["left"] - parentRect["left"]}px`;
         setTimeout(() => {
             slot.appendChild(currentCard);
-            // console.log(card.parentElement.lastElementChild);
-            // console.log(parseInt(window.getComputedStyle(card.parentElement.lastElementChild)["zIndex"]));
             if(currentCard.parentElement.children.length > 1)currentCard.style.zIndex = parseInt(window.getComputedStyle(currentCard.parentElement.children[currentCard.parentElement.children.length-2])["zIndex"])+1;
             currentCard.style.left = "0";
             currentCard.style.transition = "none";
